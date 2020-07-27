@@ -121,8 +121,8 @@ const SearchController = () => {
   //   console.log(offset);
   // }, [offset]);
 
-  const incrementOffset = () => {
-    // setOffset(offset + 10);
+  const increaseOffset = () => {
+    setOffset(offset + 10);
     getRecipes();
     setCurrentRecipes([]);
     console.log(offset);
@@ -150,15 +150,8 @@ const SearchController = () => {
       <RecipeTile saveRecipe={saveRecipe} recipes={currentRecipes} />
       {currentRecipes.length > 0 && (
         <div className='offset-controls'>
-          {offset > 10 && <button onClick={decreaseOffset}>Back</button>}
-          <button
-            onClick={() => {
-              setOffset(offset + 10);
-              incrementOffset();
-            }}
-          >
-            Next
-          </button>
+          {offset > 0 && <button onClick={decreaseOffset}>Back</button>}
+          <button onClick={increaseOffset}>Next</button>
         </div>
       )}
     </div>
