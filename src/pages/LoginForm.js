@@ -20,7 +20,6 @@ const LoginForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(process.env.REACT_APP_BACKEND_BASE_URL);
 
     try {
       const loginRes = await axios.post(
@@ -51,13 +50,13 @@ const LoginForm = () => {
           )
           .then((data) => {
             setSpotifyAuth(data.data.access_token);
-            console.log('access_token added');
+            // console.log('access_token added');
             history.push('/');
           });
       }
     } catch (err) {
-      console.log(err);
-      err && setError(err.message);
+      console.log(err.response.data.msg);
+      err && setError(err.response.data.msg);
     }
   };
 

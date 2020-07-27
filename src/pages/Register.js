@@ -48,8 +48,8 @@ const Register = () => {
         localStorage.setItem('auth-token', loginRes.data.token);
         history.push('/');
       } catch (err) {
-        console.log(err);
-        err && setError(err.message);
+        // console.log(err.response.data.msg);
+        err && setError(err.response.data.msg);
       }
     }
   };

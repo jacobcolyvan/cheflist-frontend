@@ -8,7 +8,6 @@ const Playlist = ({ recipe, playlistRef }) => {
   const { userData, setUserData, spotifyAuth } = useContext(UserContext);
   const [recommendedTrackIds, setRecommendedTrackIds] = useState(undefined);
   const [recommendedTracks, setRecommendedTracks] = useState(undefined);
-  // console.log(genres.genres);
 
   const [instrumentalness, setInstrumentalness] = useState(0.12);
   const [valence, setValence] = useState(0.5);
@@ -29,7 +28,7 @@ const Playlist = ({ recipe, playlistRef }) => {
           'Content-Type': 'application/json'
         }
       });
-      // console.log(trackRecs);
+
       const trackIds = trackRecs.data.tracks.map(
         (track) => `spotify:track:${track.id}`
       );
@@ -39,7 +38,7 @@ const Playlist = ({ recipe, playlistRef }) => {
         track.preview_url,
         track.id
       ]);
-      console.log(trackInfo);
+      // console.log(trackInfo);
       setRecommendedTracks(trackInfo);
       setRecommendedTrackIds(trackIds);
     } catch (err) {
@@ -103,10 +102,8 @@ const Playlist = ({ recipe, playlistRef }) => {
   const saveTracksToPlaylist = async () => {
     try {
       const playlistId = await createEmptyPlaylist();
-      console.log(playlistId);
       const data = await savePlaylistIdToUser(playlistId);
-      console.log(data);
-      // console.log(pl);
+
       await addTracksToPlaylist(data[0]);
       await setUserData({
         token: userData.token,
