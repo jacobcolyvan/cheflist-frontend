@@ -59,7 +59,7 @@ const SearchController = () => {
 
     try {
       const newRecipes = await axios.put(
-        `http://localhost:3000/users/recipes/add`,
+        `${REACT_BACKEND_BASE_URL}/users/recipes/add`,
         data,
         {
           headers: {

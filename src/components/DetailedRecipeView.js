@@ -14,13 +14,13 @@ const DetailedRecipeView = ({ recipe }) => {
   const deleteRecipe = async () => {
     try {
       const newRecipes = await axios.put(
-        `http://localhost:3000/users/recipes/delete`,
+        `${REACT_BACKEND_BASE_URL}/users/recipes/delete`,
         { id: userData.user, recipeId: recipe.id },
         {
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': userData.token,
-          },
+            'x-auth-token': userData.token
+          }
         }
       );
       console.log('recipe has been deleted');
@@ -28,7 +28,7 @@ const DetailedRecipeView = ({ recipe }) => {
       await setUserData({
         token: userData.token,
         user: userData.user,
-        recipes: newRecipes.data,
+        recipes: newRecipes.data
       });
       history.push(`/`);
     } catch (err) {

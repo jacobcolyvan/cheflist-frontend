@@ -10,7 +10,7 @@ const SpotifyRoutingPage = (props) => {
   useEffect(() => {
     const backendAuthCode = async (data) => {
       const res = await axios.post(
-        `http://localhost:3000/spotify/callback`,
+        `${REACT_BACKEND_BASE_URL}/spotify/callback`,
         data,
         {
           headers: {

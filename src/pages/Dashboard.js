@@ -35,7 +35,7 @@ const Dashboard = () => {
   };
 
   const deleteAccount = async () => {
-    await axios.delete(`http://localhost:3000/user/${userData.user}`, {
+    await axios.delete(`${REACT_BACKEND_BASE_URL}/user/${userData.user}`, {
       headers: {
         'Content-Type': 'application/json',
         'x-auth-token': userData.token
@@ -65,7 +65,7 @@ const Dashboard = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:3000/user/${userData.user}`,
+        `${REACT_BACKEND_BASE_URL}/user/${userData.user}`,
         { newUsername },
         {
           headers: {
@@ -93,7 +93,7 @@ const Dashboard = () => {
     } else {
       try {
         const response = await axios.put(
-          `http://localhost:3000/user/${userData.user}`,
+          `${REACT_BACKEND_BASE_URL}/user/${userData.user}`,
           { currentPassword, newPassword, newPassword2 },
           {
             headers: {

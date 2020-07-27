@@ -27,11 +27,14 @@ const Register = () => {
       setError('passwords do not match');
     } else {
       try {
-        await axios.post('http://localhost:3000/auth/register', formData);
-        const loginRes = await axios.post('http://localhost:3000/auth/login', {
-          username,
-          password
-        });
+        await axios.post(`${REACT_BACKEND_BASE_URL}/auth/register`, formData);
+        const loginRes = await axios.post(
+          `${REACT_BACKEND_BASE_URL}/auth/login`,
+          {
+            username,
+            password
+          }
+        );
         // console.log(loginRes);
         setUserData({
           token: loginRes.data.token,

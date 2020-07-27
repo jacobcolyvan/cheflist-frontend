@@ -23,7 +23,7 @@ const LoginForm = () => {
 
     try {
       const loginRes = await axios.post(
-        'http://localhost:3000/auth/login',
+        `${REACT_BACKEND_BASE_URL}/auth/login`,
         formData
       );
       // console.log(loginRes);
@@ -37,7 +37,7 @@ const LoginForm = () => {
       if (loginRes.data.spotifyAuth) {
         await axios
           .post(
-            'http://localhost:3000/spotify/refresh',
+            `${REACT_BACKEND_BASE_URL}/spotify/refresh`,
             {
               id: loginRes.data._id
             },

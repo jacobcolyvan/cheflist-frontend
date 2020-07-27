@@ -38,7 +38,7 @@ const App = () => {
         token = '';
       }
       const tokenRes = await axios.post(
-        'http://localhost:3000/auth/tokenIsValid',
+        `${REACT_BACKEND_BASE_URL}/auth/tokenIsValid`,
         null,
         { headers: { 'x-auth-token': token } }
       );
@@ -54,7 +54,7 @@ const App = () => {
       if (tokenRes.data.spotifyAuth) {
         axios
           .post(
-            `http://localhost:3000/spotify/refresh`,
+            `${REACT_BACKEND_BASE_URL}/spotify/refresh`,
             { id: tokenRes.data._id },
             {
               headers: {
