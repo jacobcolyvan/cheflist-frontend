@@ -5,6 +5,7 @@ import SearchBar from './SearchBar';
 import UserContext from '../context/UserContext';
 import axios from 'axios';
 import RecipeTile from '../components/RecipeTile';
+import ErrorNotice from '../components/ErrorNotice';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -12,6 +13,7 @@ const SearchController = () => {
   const [searchValue, setSearchValue] = useState('');
   const [currentRecipes, setCurrentRecipes] = useState([]);
   const [offset, setOffset] = useState(0);
+  const [error, setError] = useState(undefined);
 
   const { userData, setUserData } = useContext(UserContext);
   const history = useHistory();
@@ -26,7 +28,17 @@ const SearchController = () => {
         `https://api.spoonacular.com/recipes/complexSearch?query=${searchValue}&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}&addRecipeInformation=true&fillIngredients=true&sort=${sort}&offset=${offset}&number=${number}`
         // can also sort by popularity
       );
-      setCurrentRecipes(searchResults.data.results);
+
+      const results = searchResults.data.results;
+      if (results.length > 0) {
+        setCurrentRecipes(results);
+        setError(undefined);
+      } else {
+        setError(
+          'There were no results found, try your luck with something else.'
+        );
+      }
+
       console.log('wallah hussy, shes loaded');
     } catch (err) {
       console.log(err);
@@ -114,6 +126,10 @@ const SearchController = () => {
         }}
         onEnter={getRecipes}
       />
+
+      {error && (
+        <ErrorNotice message={error} clearError={() => setError(undefined)} />
+      )}
 
       <RecipeTile saveRecipe={saveRecipe} recipes={currentRecipes} />
       {currentRecipes.length > 0 && (
