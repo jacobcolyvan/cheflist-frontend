@@ -1,5 +1,3 @@
-// Logic for both searchbars: user recipes and spoonacular (finds recipes)
-
 import React, { useState, useContext, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import UserContext from '../context/UserContext';
@@ -145,13 +143,7 @@ const SearchController = () => {
       )}
       {isLoading && (
         <div className='loader'>
-          <Loader
-            type='Puff'
-            color='#00BFFF'
-            height={100}
-            width={100}
-            // timeout={3000} //3 secs
-          />
+          <Loader type='Puff' color='#00BFFF' height={100} width={100} />
         </div>
       )}
 
