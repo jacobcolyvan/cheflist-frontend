@@ -38,7 +38,7 @@ const Register = () => {
             password
           }
         );
-        // console.log(loginRes);
+
         setUserData({
           token: loginRes.data.token,
           user: loginRes.data._id,

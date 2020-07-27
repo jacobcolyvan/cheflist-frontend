@@ -2,18 +2,24 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import UserContext from '../context/UserContext';
 import SpotifyAuth from './SpotifyAuth';
+import genres from '../utils/genres.json';
 
 const Playlist = ({ recipe, playlistRef }) => {
   const { userData, setUserData, spotifyAuth } = useContext(UserContext);
   const [recommendedTrackIds, setRecommendedTrackIds] = useState(undefined);
   const [recommendedTracks, setRecommendedTracks] = useState(undefined);
+  // console.log(genres.genres);
 
   const getRecommendedTracks = async () => {
     try {
+      const seed_genres = genres.genres;
+      const seed_genre =
+        seed_genres[Math.floor(Math.random() * seed_genres.length)];
+      console.log(seed_genre);
+
       const trackRecs = await axios({
         method: 'get',
-        url:
-          'https://api.spotify.com/v1/recommendations?market=AU&seed_genres=iranian&target_instrumentalness=0.4',
+        url: `https://api.spotify.com/v1/recommendations?market=AU&seed_genres=${seed_genre}&target_instrumentalness=0.4`,
         headers: {
           Authorization: 'Bearer ' + spotifyAuth,
           'Content-Type': 'application/json'
