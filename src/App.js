@@ -64,7 +64,7 @@ const App = () => {
             }
           )
           .then((data) => {
-            console.log(data.data.access_token);
+            // console.log(data.data.access_token);
             setSpotifyAuth(data.data.access_token);
           });
       } else {

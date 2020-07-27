@@ -18,12 +18,12 @@ const ViewRecipe = ({ recipe }) => {
   return (
     <div>
       {recipe && (
-        <>
+        <div className='view-recipe'>
           <DetailedRecipeView recipe={recipe} />
           <br />
           <br />
           <Playlist recipe={recipe} playlistRef={recipe.playlistRef} />
-        </>
+        </div>
       )}
     </div>
   );
