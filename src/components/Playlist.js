@@ -75,7 +75,7 @@ const Playlist = ({ recipe, playlistRef }) => {
     };
 
     const newRecipes = await axios.put(
-      `${REACT_BACKEND_BASE_URL}/users/recipes/add-playlist`,
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/users/recipes/add-playlist`,
       newPlaylistData,
       {
         headers: {

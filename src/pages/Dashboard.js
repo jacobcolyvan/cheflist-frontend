@@ -35,12 +35,15 @@ const Dashboard = () => {
   };
 
   const deleteAccount = async () => {
-    await axios.delete(`${REACT_BACKEND_BASE_URL}/user/${userData.user}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': userData.token
+    await axios.delete(
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': userData.token
+        }
       }
-    });
+    );
     history.push('/login');
     setUserData({
       token: undefined,
@@ -65,7 +68,7 @@ const Dashboard = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `${REACT_BACKEND_BASE_URL}/user/${userData.user}`,
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
         { newUsername },
         {
           headers: {
@@ -93,7 +96,7 @@ const Dashboard = () => {
     } else {
       try {
         const response = await axios.put(
-          `${REACT_BACKEND_BASE_URL}/user/${userData.user}`,
+          `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
           { currentPassword, newPassword, newPassword2 },
           {
             headers: {

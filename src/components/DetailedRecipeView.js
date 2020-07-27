@@ -14,7 +14,7 @@ const DetailedRecipeView = ({ recipe }) => {
   const deleteRecipe = async () => {
     try {
       const newRecipes = await axios.put(
-        `${REACT_BACKEND_BASE_URL}/users/recipes/delete`,
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/users/recipes/delete`,
         { id: userData.user, recipeId: recipe.id },
         {
           headers: {

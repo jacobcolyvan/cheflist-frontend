@@ -20,10 +20,11 @@ const LoginForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    console.log(process.env.REACT_APP_BACKEND_BASE_URL);
 
     try {
       const loginRes = await axios.post(
-        `${REACT_BACKEND_BASE_URL}/auth/login`,
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/auth/login`,
         formData
       );
       // console.log(loginRes);
@@ -37,7 +38,7 @@ const LoginForm = () => {
       if (loginRes.data.spotifyAuth) {
         await axios
           .post(
-            `${REACT_BACKEND_BASE_URL}/spotify/refresh`,
+            `${process.env.REACT_APP_BACKEND_BASE_URL}/spotify/refresh`,
             {
               id: loginRes.data._id
             },

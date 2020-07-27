@@ -27,9 +27,12 @@ const Register = () => {
       setError('passwords do not match');
     } else {
       try {
-        await axios.post(`${REACT_BACKEND_BASE_URL}/auth/register`, formData);
+        await axios.post(
+          `${process.env.REACT_APP_BACKEND_BASE_URL}/auth/register`,
+          formData
+        );
         const loginRes = await axios.post(
-          `${REACT_BACKEND_BASE_URL}/auth/login`,
+          `${process.env.REACT_APP_BACKEND_BASE_URL}/auth/login`,
           {
             username,
             password
