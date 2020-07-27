@@ -4,7 +4,7 @@ import './UserRecipeTile.css';
 
 //this is for saved user recipes - rendered on home page
 
-const UserRecipeTile = ({ userRecipes }) => {
+const UserRecipes = ({ userRecipes }) => {
   return (
     <div className='userRecipeTile'>
       {userRecipes &&
@@ -22,4 +22,4 @@ const UserRecipeTile = ({ userRecipes }) => {
   );
 };
 
-export default UserRecipeTile;
+export default UserRecipes;

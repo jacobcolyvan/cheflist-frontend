@@ -3,7 +3,7 @@
 // Search controller on this page should search through presaved recipes
 
 import React, { useEffect, useContext } from 'react';
-import UserRecipeTile from '../components/UserRecipeTile';
+import UserRecipes from '../components/UserRecipes';
 import UserContext from '../context/UserContext';
 import { useHistory } from 'react-router-dom';
 import SpotifyAuth from '../components/SpotifyAuth';
@@ -21,7 +21,7 @@ const Home = () => {
       <h2>Saved Recipes</h2>
       <br />
       {!spotifyAuth && <SpotifyAuth />}
-      {userData.recipes && <UserRecipeTile userRecipes={userData.recipes} />}
+      {userData.recipes && <UserRecipes userRecipes={userData.recipes} />}
     </div>
   );
 };
