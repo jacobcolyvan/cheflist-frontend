@@ -9,25 +9,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 // This
 const Home = () => {
-  const { userData, spotifyAuth } = useContext(UserContext);
+  const { userData, spotifyAuth, recipeArray } = useContext(UserContext);
   const history = useHistory();
   const [page, setPage] = useState(0);
-  const [recipeArray, setRecipeArray] = useState(undefined);
 
   useEffect(() => {
     if (!userData.user) history.push('/login');
   });
-
-  useEffect(() => {
-    const recipes = userData.recipes;
-    if (recipes) {
-      const splitRecipes = new Array(Math.ceil(recipes.length / 10))
-        .fill()
-        .map((_) => recipes.splice(0, 10));
-      setRecipeArray(splitRecipes);
-      console.log(splitRecipes);
-    }
-  }, [userData]);
 
   return (
     <div>
@@ -36,7 +24,6 @@ const Home = () => {
       <p>
         Because music and food are better when together: <i>Cheflist.</i>
       </p>
-
       {!spotifyAuth && (
         <>
           <p>
@@ -46,8 +33,7 @@ const Home = () => {
           <SpotifyAuth />
         </>
       )}
-
-      {recipeArray ? (
+      {recipeArray.length > 0 && (
         <>
           <div className='userRecipeTile'>
             {recipeArray[page].map((recipe, index) => (
@@ -77,11 +63,11 @@ const Home = () => {
             )}
           </div>
         </>
-      ) : (
-        <div className='loader'>
-          <Loader type='Puff' color='#00BFFF' height={100} width={100} />
-        </div>
       )}
+      ) : (
+      <div className='loader'>
+        <Loader type='Puff' color='#00BFFF' height={100} width={100} />{' '}
+      </div>
     </div>
   );
 };
