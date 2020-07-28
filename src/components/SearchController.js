@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import UserContext from '../context/UserContext';
 import axios from 'axios';
-import RecipeTile from '../components/RecipeTile';
+import RecipeTiles from '../components/RecipeTiles';
 import ErrorNotice from '../components/ErrorNotice';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -22,7 +22,7 @@ const SearchController = () => {
     setIsLoading(true);
 
     try {
-      const sort = 'meta-score';
+      const sort = 'popularity';
       const number = 10;
       const searchResults = await axios.get(
         `https://api.spoonacular.com/recipes/complexSearch?query=${searchValue}&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}&addRecipeInformation=true&fillIngredients=true&sort=${sort}&offset=${offset}&number=${number}`
@@ -141,7 +141,8 @@ const SearchController = () => {
         </div>
       )}
 
-      <RecipeTile saveRecipe={saveRecipe} recipes={currentRecipes} />
+      <RecipeTiles saveRecipe={saveRecipe} recipes={currentRecipes} />
+      {/* These are buttons for changing pages */}
       {currentRecipes.length > 0 && (
         <div className='offset-controls'>
           {offset > 0 && <button onClick={decreaseOffset}>Back</button>}

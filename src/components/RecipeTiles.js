@@ -1,8 +1,8 @@
 import React from 'react';
-import './RecipeTile.css';
+import '../styles/RecipeTile.css';
 
 //renders list of searched recipes
-const RecipeTile = ({ recipes, saveRecipe }) => {
+const RecipeTiles = ({ recipes, saveRecipe }) => {
   return (
     <div className='recipe-results-container'>
       {recipes.map((recipe, index) => (
@@ -29,4 +29,4 @@ const RecipeTile = ({ recipes, saveRecipe }) => {
   );
 };
 
-export default RecipeTile;
+export default RecipeTiles;

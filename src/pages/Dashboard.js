@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import Modal from '../components/Modal';
-import './Dashboard.css';
+import '../styles/Dashboard.css';
 import GenericModal from '../components/GenericModal';
 import SpotifyAuth from '../components/SpotifyAuth';
 

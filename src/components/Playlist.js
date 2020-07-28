@@ -9,7 +9,6 @@ const Playlist = ({ recipe, playlistRef }) => {
   const { userData, setUserData, spotifyAuth } = useContext(UserContext);
   const [recommendedTrackIds, setRecommendedTrackIds] = useState(undefined);
   const [recommendedTracks, setRecommendedTracks] = useState(undefined);
-  // console.log(genres.genres);
 
   const [instrumentalness, setInstrumentalness] = useState(0.12);
   const [valence, setValence] = useState(0.5);
@@ -20,7 +19,6 @@ const Playlist = ({ recipe, playlistRef }) => {
       const seed_genre =
         seed_genres[Math.floor(Math.random() * seed_genres.length)];
       console.log(seed_genre);
-      // let instrumentalness = 0.12;
 
       const trackRecs = await axios({
         method: 'get',
