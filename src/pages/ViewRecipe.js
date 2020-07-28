@@ -15,6 +15,8 @@ const ViewRecipe = ({ recipe }) => {
     if (!userData.user) history.push('/login');
   }, [userData, history]);
 
+  console.log(recipe);
+
   return (
     <div>
       {recipe && (
