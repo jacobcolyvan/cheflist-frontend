@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import UserContext from '../context/UserContext';
 import axios from 'axios';
-import RecipeTile from '../components/RecipeTile';
+import RecipeTiles from '../components/RecipeTiles';
 import ErrorNotice from '../components/ErrorNotice';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,8 +19,8 @@ const SearchController = () => {
   const history = useHistory();
 
   const getRecipes = async () => {
+    setCurrentRecipes([]);
     setIsLoading(true);
-
     try {
       const sort = 'popularity';
       const number = 10;
@@ -142,7 +142,8 @@ const SearchController = () => {
         </div>
       )}
 
-      <RecipeTile saveRecipe={saveRecipe} recipes={currentRecipes} />
+      <RecipeTiles saveRecipe={saveRecipe} recipes={currentRecipes} />
+      {/* These are buttons for changing pages */}
       {currentRecipes.length > 0 && (
         <div className='offset-controls'>
           {offset > 0 && <button onClick={decreaseOffset}>Back</button>}

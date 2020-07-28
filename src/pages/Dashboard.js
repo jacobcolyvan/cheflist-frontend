@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import Modal from '../components/Modal';
-import './Dashboard.css';
+import '../styles/Dashboard.css';
 import GenericModal from '../components/GenericModal';
 import SpotifyAuth from '../components/SpotifyAuth';
 
@@ -35,22 +35,25 @@ const Dashboard = () => {
   };
 
   const deleteAccount = async () => {
-    await axios.delete(
-      `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': userData.token,
-        },
-      }
-    );
-    history.push('/login');
-    setUserData({
-      token: undefined,
-      user: undefined,
-    });
-    localStorage.setItem('auth-token', '');
-    console.log(userData);
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': userData.token,
+          },
+        }
+      );
+      history.push('/login');
+      setUserData({
+        token: undefined,
+        user: undefined,
+      });
+      localStorage.setItem('auth-token', '');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const usernameHandler = (e) => {

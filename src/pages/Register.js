@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-
 import UserContext from '../context/UserContext';
 import axios from 'axios';
 import ErrorNotice from '../components/ErrorNotice';
@@ -49,7 +48,7 @@ const Register = () => {
         history.push('/');
       } catch (err) {
         // console.log(err.response.data);
-        err && setError(err.response.data.msg);
+        err.response.data.msg && setError(err.response.data.msg);
       }
     }
   };

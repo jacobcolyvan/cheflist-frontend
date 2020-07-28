@@ -85,7 +85,7 @@ const App = () => {
           value={{ userData, setUserData, spotifyAuth, setSpotifyAuth }}
         >
           {userData.user && <Navbar />}
-          <h1 className='home-header'>Cookify bru</h1>
+
           <br />
           <Switch>
             <Route exact path='/' component={Home} />

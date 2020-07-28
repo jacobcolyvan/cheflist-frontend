@@ -56,7 +56,8 @@ const LoginForm = () => {
       }
     } catch (err) {
       // console.log(err.response.data);
-      err && setError(err.response.data.msg);
+      const msg = err.response.data.msg;
+      msg && setError(msg);
     }
   };
 

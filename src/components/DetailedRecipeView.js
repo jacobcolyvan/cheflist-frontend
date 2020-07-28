@@ -3,7 +3,7 @@ import axios from 'axios';
 import UserContext from '../context/UserContext';
 import { useHistory } from 'react-router-dom';
 
-import './DetailedRecipeView.css';
+import '../styles/DetailedRecipeView.css';
 
 //shows detailed recipe info within ViewRecipe.js
 
