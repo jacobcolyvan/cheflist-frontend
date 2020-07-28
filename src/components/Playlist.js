@@ -3,6 +3,7 @@ import axios from 'axios';
 import UserContext from '../context/UserContext';
 import SpotifyAuth from './SpotifyAuth';
 import genres from '../utils/genres.json';
+import TrackRecs from './TrackRecs';
 
 const Playlist = ({ recipe, playlistRef }) => {
   const { userData, setUserData, spotifyAuth } = useContext(UserContext);
@@ -39,7 +40,7 @@ const Playlist = ({ recipe, playlistRef }) => {
         track.preview_url,
         track.id
       ]);
-      console.log(trackInfo);
+      // console.log(trackInfo);
       setRecommendedTracks(trackInfo);
       setRecommendedTrackIds(trackIds);
     } catch (err) {
@@ -143,24 +144,11 @@ const Playlist = ({ recipe, playlistRef }) => {
     return (
       <div>
         {recommendedTrackIds ? (
-          <div className='recommendations-object playlist-container'>
-            <p>
-              <b>Recommended tracks: </b>
-            </p>
-            <ul className='recommended-tracks'>
-              {recommendedTracks.map((track, index) => (
-                <li key={`track${index}`}>
-                  {track[1]}: <i>{track[0]}</i>
-                </li>
-              ))}
-            </ul>
-            <button className='playlist-button' onClick={saveTracksToPlaylist}>
-              Save As Playlist
-            </button>
-            <button className='playlist-button' onClick={newRecommendations}>
-              New Recommendations
-            </button>
-          </div>
+          <TrackRecs
+            tracks={recommendedTracks}
+            saveTracks={saveTracksToPlaylist}
+            newRecommendations={newRecommendations}
+          />
         ) : (
           <div className='recommendations-form playlist-container'>
             <label>

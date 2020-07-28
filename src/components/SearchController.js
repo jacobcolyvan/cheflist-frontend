@@ -11,7 +11,7 @@ import Loader from 'react-loader-spinner';
 const SearchController = () => {
   const [searchValue, setSearchValue] = useState('');
   const [currentRecipes, setCurrentRecipes] = useState([]);
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState('');
   const [error, setError] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,14 +19,13 @@ const SearchController = () => {
   const history = useHistory();
 
   const getRecipes = async () => {
-    setCurrentRecipes([]);
     setIsLoading(true);
 
     try {
       const sort = 'meta-score';
       const number = 10;
       const searchResults = await axios.get(
-        `https://api.spoonacular.com/recipes/complexSearch?query=${searchValue}&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY2}&addRecipeInformation=true&fillIngredients=true&sort=${sort}&offset=${offset}&number=${number}`
+        `https://api.spoonacular.com/recipes/complexSearch?query=${searchValue}&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}&addRecipeInformation=true&fillIngredients=true&sort=${sort}&offset=${offset}&number=${number}`
         // can also sort by popularity
       );
 
@@ -108,12 +107,21 @@ const SearchController = () => {
   };
 
   useEffect(() => {
-    if (offset) {
+    if (offset !== '') {
       getRecipes();
       setCurrentRecipes([]);
       console.log(offset);
     }
   }, [offset]);
+
+  const increaseOffset = () => {
+    setOffset(offset + 10);
+  };
+
+  const decreaseOffset = () => {
+    setOffset(offset - 10);
+  };
+
   return (
     <div>
       <SearchBar
@@ -136,12 +144,11 @@ const SearchController = () => {
       <RecipeTile saveRecipe={saveRecipe} recipes={currentRecipes} />
       {currentRecipes.length > 0 && (
         <div className='offset-controls'>
-          {offset > 0 && <button onClick={setOffset(offset - 10)}>Back</button>}
-          <button onClick={setOffset(offset + 10)}>Next</button>
+          {offset > 0 && <button onClick={decreaseOffset}>Back</button>}
+          <button onClick={increaseOffset}>Next</button>
         </div>
-      )
-      }
-    </div >
+      )}
+    </div>
   );
 };
 
