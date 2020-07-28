@@ -107,27 +107,13 @@ const SearchController = () => {
     return ingredientArray;
   };
 
-  const decreaseOffset = () => {
-    setOffset(offset - 10);
-    getRecipes();
-    setCurrentRecipes([]);
-    console.log(offset);
-  };
-
-  // QUESTION ??????
-  // useEffect(() => {
-  //   getRecipes();
-  //   setCurrentRecipes([]);
-  //   console.log(offset);
-  // }, [offset]);
-
-  const increaseOffset = () => {
-    setOffset(offset + 10);
-    getRecipes();
-    setCurrentRecipes([]);
-    console.log(offset);
-  };
-
+  useEffect(() => {
+    if (offset) {
+      getRecipes();
+      setCurrentRecipes([]);
+      console.log(offset);
+    }
+  }, [offset]);
   return (
     <div>
       <SearchBar
@@ -150,11 +136,12 @@ const SearchController = () => {
       <RecipeTile saveRecipe={saveRecipe} recipes={currentRecipes} />
       {currentRecipes.length > 0 && (
         <div className='offset-controls'>
-          {offset > 0 && <button onClick={decreaseOffset}>Back</button>}
-          <button onClick={increaseOffset}>Next</button>
+          {offset > 0 && <button onClick={setOffset(offset - 10)}>Back</button>}
+          <button onClick={setOffset(offset + 10)}>Next</button>
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 
