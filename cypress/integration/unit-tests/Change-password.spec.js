@@ -6,10 +6,10 @@ function login() {
   cy.get('[data-cy=login]').type('test');
   cy.get('[data-cy=password]').type('123456');
   cy.get('[data-cy=login-button]').click();
+  cy.wait(1000); //need this, for the spotify redirect
 }
 
 function changePassword() {
-  cy.wait(750);
   cy.get('[data-cy=dashboard]').click();
   cy.get('[data-cy=current-password]').type('123456');
   cy.get('[data-cy=new-password]').type('234567');
@@ -36,7 +36,7 @@ before(() => {
 });
 
 context('Dashboard-change username', () => {
-  it('logins, changes password to 234567 then changes it back to 123456', () => {
+  it('logs in, changes password to 234567 then changes it back to 123456', () => {
     changePassword();
   });
 });

@@ -2,12 +2,11 @@ function login() {
   cy.get('[data-cy=login]').type('test');
   cy.get('[data-cy=password]').type('123456');
   cy.get('[data-cy=login-button]').click();
+  cy.wait(1000); //need this, for the spotify redirect
 }
 
 function addRecipe() {
-  cy.wait(1000); //one second wait for spotify redirect to take to home
   cy.get('[data-cy=newRecipe]').click();
-
   cy.get('[data-cy=searchbar]').type('chicken{enter}');
   cy.get(':nth-child(1) > [data-cy=save]').click();
 }
@@ -25,11 +24,11 @@ function logout() {
 
 before(() => {
   cy.visit('http://localhost:3001/');
+  login();
 });
 
 context('Add recipe, get playlist', () => {
   it('logs in, searches for a recipe, add a recipe, adds a playlist', () => {
-    login();
     addRecipe();
     addPlaylist();
   });

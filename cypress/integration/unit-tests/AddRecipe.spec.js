@@ -4,10 +4,10 @@ function login() {
   cy.get('[data-cy=login]').type('test');
   cy.get('[data-cy=password]').type('123456');
   cy.get('[data-cy=login-button]').click();
+  cy.wait(1000); //need this, for the spotify redirect
 }
 
 function addRecipe() {
-  cy.wait(1000); //one second wait for spotify redirect to take to home
   cy.get('[data-cy=newRecipe]').click();
 
   cy.get('[data-cy=searchbar]').type('chicken{enter}');
@@ -22,20 +22,18 @@ function logout() {
   cy.get('[data-cy=logout-button]').click();
 }
 
-context('Add a recipe', () => {
-  before(() => {
-    cy.visit('http://localhost:3001/');
-    login();
-  });
+before(() => {
+  cy.visit('http://localhost:3001/');
+  login();
+});
 
+context('Add a recipe', () => {
   it('can login and logout', () => {
     addRecipe();
   });
+});
 
-  // sometimes produces a "Cannot set property 'err' of undefined" this was fixed by restarting our environment
-  //disabled afterEach so that we can see changed state
-  after(() => {
-    //   deleteRecipe();
-    //       logout();
-  });
+after(() => {
+  //   deleteRecipe();
+  //       logout();
 });

@@ -9,17 +9,19 @@ function login() {
   cy.wait(1000); //need this, for the spotify redirect
 }
 
-function changeUsername() {
+function deleteAccount() {
   cy.get('[data-cy=dashboard]').click();
-  cy.get('[data-cy=edit-username]').type('test100');
-  cy.get('[data-cy=change-username-button]').click();
+  cy.get('[data-cy=delete-account-button]').click();
+  cy.get('[data-cy=delete-account-confirm]').click();
 }
 
-function resetUsername() {
-  //reset username to test
-  cy.get('[data-cy=modal-footer]').click();
-  cy.get('[data-cy=edit-username]').clear().type('test');
-  cy.get('[data-cy=change-username-button]').click();
+function registerAccount() {
+  //register account
+  cy.get('[data-cy=sign-up-link]').click();
+  cy.get('[data-cy=register-username]').type('test');
+  cy.get('[data-cy=register-password]').type('123456');
+  cy.get('[data-cy=register-password2]').type('123456');
+  cy.get('[data-cy=register-button]').click();
 }
 
 function logout() {
@@ -32,10 +34,11 @@ before(() => {
 });
 
 context('Dashboard-change username', () => {
-  it('logs in, change username to test100 then changes it back to test', () => {
-    changeUsername();
+  it('logs in, clicks to dashboard, hits delete account and confirms', () => {
+    deleteAccount();
   });
 });
+
 after(() => {
-  resetUsername();
+  //   registerAccount();
 });

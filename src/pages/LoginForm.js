@@ -97,7 +97,10 @@ const LoginForm = () => {
         <input type='submit' value='Login' data-cy='login-button' />
       </form>
       <p>
-        Don't have an account? <Link to='/register'>Sign up</Link>
+        Don't have an account?{' '}
+        <Link to='/register' data-cy='sign-up-link'>
+          Sign up
+        </Link>
       </p>
     </div>
   );

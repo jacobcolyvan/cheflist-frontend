@@ -130,8 +130,15 @@ const Dashboard = () => {
         header='Are you sure?'
         footer={
           <>
-            <button onClick={cancelDeleteWarningHandler}>Cancel</button>
-            <button onClick={deleteAccount}>Delete Account</button>
+            <button
+              data-cy='cancel-delete-account'
+              onClick={cancelDeleteWarningHandler}
+            >
+              Cancel
+            </button>
+            <button data-cy='delete-account-confirm' onClick={deleteAccount}>
+              Delete Account
+            </button>
           </>
         }
       >
