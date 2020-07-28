@@ -1,12 +1,15 @@
 const { wait } = require('@testing-library/react');
 
+//beforeeach login
+//aftereach delete recipe and logout
+
 context('Login/Logout a user', () => {
   //what we're testing
   beforeEach(() => {
     cy.visit('http://localhost:3001/'); //link of website to visit
+    login();
   });
 
-  // the it should be descriptive of what it should do
   function login() {
     cy.get('[type="text"]').type('test');
     cy.get('[type="password"]').type('123456');
@@ -15,19 +18,32 @@ context('Login/Logout a user', () => {
   //assertions = checking that things have been done}
 
   function addRecipe() {
-    cy.wait(5000);
+    cy.wait(3000);
     cy.get(':nth-child(2) > a').click();
+    cy.get('input').type('chicken{enter}', { delay: 100 });
+
+    cy.get(':nth-child(1) > button').click();
   }
 
-  function deleteRecipe() {}
+  function deleteRecipe() {
+    cy.get('[data-cy=deleteButton]').click();
+  }
 
   function logout() {
-    cy.get('button').click();
+    cy.get('.logout');
   }
 
   it('can login and logout', () => {
-    login();
+    // cy.on('uncaught:exception', (err, runnable) => {
+    //   expect(err.message).to.include('something about the error');
+    //   document();
+    //   return false;
+    // });
     addRecipe();
-    // logout();
+  });
+
+  afterEach(() => {
+    deleteRecipe();
+    logout();
   });
 });

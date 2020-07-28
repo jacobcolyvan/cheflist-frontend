@@ -12,19 +12,16 @@ const AuthOptions = () => {
   const logout = () => {
     setUserData({
       token: undefined,
-      user: undefined
+      user: undefined,
     });
     localStorage.setItem('auth-token', '');
   };
   return (
     <div className='auth-options'>
-      {userData.user ? (
-        <button onClick={logout}>Log out</button>
-      ) : (
-        <>
-          <button onClick={register}>Register</button>
-          <button onClick={login}>Log in</button>
-        </>
+      {userData.user && (
+        <button className='logout' onClick={logout}>
+          Log out
+        </button>
       )}
     </div>
   );
