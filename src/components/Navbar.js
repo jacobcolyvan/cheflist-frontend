@@ -6,16 +6,22 @@ const Navbar = () => {
   return (
     <div className='navBar'>
       <li>
-        <Link to='/'>Home</Link>
+        <Link data-cy='home' to='/'>
+          Home
+        </Link>
       </li>
       <li>
-        <Link to='/add'>New</Link>
+        <Link data-cy='newRecipe' to='/add'>
+          New
+        </Link>
       </li>
       <li>
-        <Link to='/dashboard'>Dashboard</Link>
+        <Link data-cy='dashboard' to='/dashboard'>
+          Dashboard
+        </Link>
       </li>
 
-      <AuthOptions />
+      <AuthOptions data-cy='logout' />
     </div>
   );
 };

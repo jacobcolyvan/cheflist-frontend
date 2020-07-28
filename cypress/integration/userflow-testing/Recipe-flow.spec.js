@@ -1,7 +1,6 @@
 context('Add and Delete recipe', () => {
-  //what we're testing
   beforeEach(() => {
-    cy.visit('http://localhost:3001/'); //link of website to visit
+    cy.visit('http://localhost:3001/');
   });
 
   // the it should be descriptive of what it should do

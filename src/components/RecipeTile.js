@@ -3,6 +3,7 @@ import './RecipeTile.css';
 
 //renders list of searched recipes
 const RecipeTile = ({ recipes, saveRecipe }) => {
+  console.log(recipes);
   return (
     <div className='recipe-results-container'>
       {recipes.map((recipe, index) => (
@@ -17,6 +18,7 @@ const RecipeTile = ({ recipes, saveRecipe }) => {
             ))}
           </ul>
           <button
+            data-cy='save'
             onClick={() => {
               saveRecipe(index);
             }}

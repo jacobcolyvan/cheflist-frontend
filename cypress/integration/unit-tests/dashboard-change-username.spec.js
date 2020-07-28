@@ -1,53 +1,44 @@
 const { wait } = require('@testing-library/react');
 
-// not fully working
+//note, sometimes cypress gets a cannot set property err of undefined error, fix by restarting cypress
 
-context('Dashboard', () => {
-  //what we're testing
-  beforeEach(() => {
-    cy.visit('http://localhost:3001/'); //link of website to visit
-  });
-
+context('Dashboard-change username', () => {
   function login() {
-    cy.contains('Sign up');
-    cy.contains('Sign In');
-    cy.contains('Username');
-    cy.contains('Register').should('not.be.visible');
-    cy.get('[type="text"]').type('test');
-    cy.get('[type="password"]').type('123456');
-    cy.get('[type="submit"]').click();
+    cy.get('[data-cy=login]').type('test');
+    cy.get('[data-cy=password]').type('123456');
+    cy.get('[data-cy=login-button]').click();
   }
 
   function changeUsername() {
     cy.wait(500);
-    cy.get(':nth-child(3) > a').click();
+    cy.get('[data-cy=dashboard]').click();
     cy.wait(500);
-    cy.get(':nth-child(1) > .form-input').type('test100');
-    cy.get(':nth-child(1) > .submit').click();
+    cy.get('[data-cy=edit-username]').type('test100');
+    cy.get('[data-cy=change-username-button]').click();
   }
 
   function resetUsername() {
     //reset username to test
-
-    cy.get('.modal__footer > button').click();
     wait(500);
-    cy.get(':nth-child(1) > .form-input').type('test');
-    cy.get(':nth-child(1) > .submit').click();
+    cy.get('[data-cy=modal-footer]').click();
+    cy.get('[data-cy=edit-username]').clear().type('test');
+    cy.get('[data-cy=change-username-button]').click();
   }
 
   function logout() {
-    cy.get('button').click();
+    cy.get('.logout').click();
   }
 
-  //logged in as user: test, password: 123456
-  it('change username', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:3001/');
     login();
+  });
 
+  it('logins, change username to test100 then changes it back to test', () => {
     changeUsername();
 
     resetUsername();
 
-    logout();
-    //assertions = checking that things have been done
+    // logout();
   });
 });

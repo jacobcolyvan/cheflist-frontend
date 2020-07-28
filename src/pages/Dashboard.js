@@ -151,8 +151,14 @@ const Dashboard = () => {
             value={newUsername}
             onChange={(e) => usernameHandler(e)}
             className='form-input'
+            data-cy='edit-username'
           />
-          <input className='submit' type='submit' value='Change username' />
+          <input
+            className='submit'
+            type='submit'
+            value='Change username'
+            data-cy='change-username-button'
+          />
           {/* <button onClick={editUsername}>Edit</button> */}
         </form>
 

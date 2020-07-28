@@ -8,6 +8,7 @@ const SearchBar = (props) => {
     <div className='searchbar'>
       <label>Search for recipes</label>
       <input
+        data-cy='searchbar'
         placeholder='Type your search term here and hit enter'
         type='text'
         value={props.searchValue}
