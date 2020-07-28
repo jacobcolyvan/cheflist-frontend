@@ -20,7 +20,6 @@ const LoginForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(process.env.REACT_APP_BACKEND_BASE_URL);
 
     try {
       const loginRes = await axios.post(
@@ -56,8 +55,8 @@ const LoginForm = () => {
           });
       }
     } catch (err) {
-      console.log(err);
-      err && setError(err.message);
+      // console.log(err.response.data);
+      err && setError(err.response.data.msg);
     }
   };
 

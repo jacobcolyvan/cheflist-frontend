@@ -1,36 +1,48 @@
-// Logic for both searchbars: user recipes and spoonacular (finds recipes)
-
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import UserContext from '../context/UserContext';
 import axios from 'axios';
 import RecipeTile from '../components/RecipeTile';
+import ErrorNotice from '../components/ErrorNotice';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import Loader from 'react-loader-spinner';
 
 const SearchController = () => {
   const [searchValue, setSearchValue] = useState('');
   const [currentRecipes, setCurrentRecipes] = useState([]);
   const [offset, setOffset] = useState(0);
+  const [error, setError] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { userData, setUserData } = useContext(UserContext);
   const history = useHistory();
 
-  let userRecipes = userData.recipes;
-
   const getRecipes = async () => {
+    setCurrentRecipes([]);
+    setIsLoading(true);
+
     try {
       const sort = 'meta-score';
       const number = 10;
       const searchResults = await axios.get(
-        `https://api.spoonacular.com/recipes/complexSearch?query=${searchValue}&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}&addRecipeInformation=true&fillIngredients=true&sort=${sort}&offset=${offset}&number=${number}`
+        `https://api.spoonacular.com/recipes/complexSearch?query=${searchValue}&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY2}&addRecipeInformation=true&fillIngredients=true&sort=${sort}&offset=${offset}&number=${number}`
         // can also sort by popularity
       );
-      setCurrentRecipes(searchResults.data.results);
+
+      const results = searchResults.data.results;
+      setIsLoading(false);
+      if (results.length > 0) {
+        setCurrentRecipes(results);
+        setError(undefined);
+      } else {
+        setError('There were no results found, try your luck another search.');
+      }
       console.log('wallah hussy, shes loaded');
     } catch (err) {
       console.log(err);
       console.log('something wrong w/ spoonacular request');
+      setIsLoading(false);
     }
   };
 
@@ -75,8 +87,8 @@ const SearchController = () => {
         user: userData.user,
         recipes: newRecipes.data
       });
-      // this should ideally have a small popup that tells you it's been added/favorited
-      history.push(`/recipes/${userRecipes.length}`);
+
+      history.push(`/recipes/${newRecipes.data.length - 1}`);
     } catch (err) {
       console.log('somethings said no');
       console.log(err);
@@ -95,16 +107,13 @@ const SearchController = () => {
     return ingredientArray;
   };
 
-  const decreaseOffset = () => {
-    setOffset(offset - 10);
-    getRecipes();
-  };
-
-  const increaseOffset = (sign) => {
-    setOffset(offset + 10);
-    getRecipes();
-  };
-
+  useEffect(() => {
+    if (offset) {
+      getRecipes();
+      setCurrentRecipes([]);
+      console.log(offset);
+    }
+  }, [offset]);
   return (
     <div>
       <SearchBar
@@ -115,14 +124,24 @@ const SearchController = () => {
         onEnter={getRecipes}
       />
 
+      {error && (
+        <ErrorNotice message={error} clearError={() => setError(undefined)} />
+      )}
+      {isLoading && (
+        <div className='loader'>
+          <Loader type='Puff' color='#00BFFF' height={100} width={100} />
+        </div>
+      )}
+
       <RecipeTile saveRecipe={saveRecipe} recipes={currentRecipes} />
       {currentRecipes.length > 0 && (
         <div className='offset-controls'>
-          {offset > 10 && <button onClick={decreaseOffset}>Back</button>}
-          <button onClick={increaseOffset}>Next</button>
+          {offset > 0 && <button onClick={setOffset(offset - 10)}>Back</button>}
+          <button onClick={setOffset(offset + 10)}>Next</button>
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 

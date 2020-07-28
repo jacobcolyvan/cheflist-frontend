@@ -31,47 +31,51 @@ const App = () => {
   const [spotifyAuth, setSpotifyAuth] = useState(true);
 
   useEffect(() => {
-    const checkLoggedIn = async () => {
-      let token = localStorage.getItem('auth-token');
-      if (token === null) {
-        localStorage.setItem('auth-token', '');
-        token = '';
-      }
-      const tokenRes = await axios.post(
-        `${process.env.REACT_APP_BACKEND_BASE_URL}/auth/tokenIsValid`,
-        null,
-        { headers: { 'x-auth-token': token } }
-      );
+    try {
+      const checkLoggedIn = async () => {
+        let token = localStorage.getItem('auth-token');
+        if (token === null) {
+          localStorage.setItem('auth-token', '');
+          token = '';
+        }
+        const tokenRes = await axios.post(
+          `${process.env.REACT_APP_BACKEND_BASE_URL}/auth/tokenIsValid`,
+          null,
+          { headers: { 'x-auth-token': token } }
+        );
 
-      if (tokenRes.data.isUser) {
-        setUserData({
-          token: tokenRes.data.token,
-          user: tokenRes.data._id,
-          recipes: tokenRes.data.recipes
-        });
-      }
-
-      if (tokenRes.data.spotifyAuth) {
-        axios
-          .post(
-            `${process.env.REACT_APP_BACKEND_BASE_URL}/spotify/refresh`,
-            { id: tokenRes.data._id },
-            {
-              headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': tokenRes.data.token
-              }
-            }
-          )
-          .then((data) => {
-            console.log(data.data.access_token);
-            setSpotifyAuth(data.data.access_token);
+        if (tokenRes.data.isUser) {
+          setUserData({
+            token: tokenRes.data.token,
+            user: tokenRes.data._id,
+            recipes: tokenRes.data.recipes
           });
-      } else {
-        setSpotifyAuth(false);
-      }
-    };
-    checkLoggedIn();
+        }
+
+        if (tokenRes.data.spotifyAuth) {
+          axios
+            .post(
+              `${process.env.REACT_APP_BACKEND_BASE_URL}/spotify/refresh`,
+              { id: tokenRes.data._id },
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'x-auth-token': tokenRes.data.token
+                }
+              }
+            )
+            .then((data) => {
+              // console.log(data.data.access_token);
+              setSpotifyAuth(data.data.access_token);
+            });
+        } else {
+          setSpotifyAuth(false);
+        }
+      };
+      checkLoggedIn();
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   return (

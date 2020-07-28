@@ -10,16 +10,20 @@ const Playlist = ({ recipe, playlistRef }) => {
   const [recommendedTracks, setRecommendedTracks] = useState(undefined);
   // console.log(genres.genres);
 
+  const [instrumentalness, setInstrumentalness] = useState(0.12);
+  const [valence, setValence] = useState(0.5);
+
   const getRecommendedTracks = async () => {
     try {
       const seed_genres = genres.genres;
       const seed_genre =
         seed_genres[Math.floor(Math.random() * seed_genres.length)];
       console.log(seed_genre);
+      // let instrumentalness = 0.12;
 
       const trackRecs = await axios({
         method: 'get',
-        url: `https://api.spotify.com/v1/recommendations?market=AU&seed_genres=${seed_genre}&target_instrumentalness=0.4`,
+        url: `https://api.spotify.com/v1/recommendations?market=AU&seed_genres=${seed_genre}&target_instrumentalness=${instrumentalness}&target_valence=${valence}`,
         headers: {
           Authorization: 'Bearer ' + spotifyAuth,
           'Content-Type': 'application/json'
@@ -57,7 +61,7 @@ const Playlist = ({ recipe, playlistRef }) => {
     });
   };
 
-  const saveAsPlaylist = async () => {
+  const createEmptyPlaylist = async () => {
     // Make spotify request to create new playlist
     const spotifyRes = await axios({
       method: 'post',
@@ -71,13 +75,15 @@ const Playlist = ({ recipe, playlistRef }) => {
         public: true
       }
     });
+    return spotifyRes.data.id;
+  };
 
+  const savePlaylistIdToUser = async (playlistId) => {
     // Save playlistRef to recipe object
-    const playlistRef = spotifyRes.data.id;
     const newPlaylistData = {
       id: userData.user,
       recipeId: recipe.id,
-      newPlaylistRef: playlistRef
+      newPlaylistRef: playlistId
     };
 
     const newRecipes = await axios.put(
@@ -91,17 +97,15 @@ const Playlist = ({ recipe, playlistRef }) => {
       }
     );
     console.log('playlistRef has been added to recipe');
-    // await setUserData({
-    //   token: userData.token,
-    //   user: userData.user,
-    //   recipes: newRecipes.data
-    // });
-    return [playlistRef, newRecipes.data];
+    return [playlistId, newRecipes.data];
   };
 
   const saveTracksToPlaylist = async () => {
     try {
-      const data = await saveAsPlaylist();
+      const playlistId = await createEmptyPlaylist();
+      console.log(playlistId);
+      const data = await savePlaylistIdToUser(playlistId);
+      console.log(data);
       // console.log(pl);
       await addTracksToPlaylist(data[0]);
       await setUserData({
@@ -116,26 +120,30 @@ const Playlist = ({ recipe, playlistRef }) => {
     }
   };
 
+  const newRecommendations = () => {
+    setRecommendedTrackIds(undefined);
+    setRecommendedTracks(undefined);
+  };
+
   if (playlistRef) {
     return (
       <div className='playlist-container'>
         <iframe
           src={`https://open.spotify.com/embed/playlist/${playlistRef}`}
-          width='400'
+          width='100%'
           height='380'
           allowtransparency='true'
           allow='encrypted-media'
           className='playlist'
           title='Playlist Object'
         ></iframe>
-        {/* <button>Delete</button> */}
       </div>
     );
   } else if (spotifyAuth) {
     return (
       <div>
         {recommendedTrackIds ? (
-          <div className='recommendations-object'>
+          <div className='recommendations-object playlist-container'>
             <p>
               <b>Recommended tracks: </b>
             </p>
@@ -146,10 +154,54 @@ const Playlist = ({ recipe, playlistRef }) => {
                 </li>
               ))}
             </ul>
-            <button onClick={saveTracksToPlaylist}>Save As Playlist</button>
+            <button className='playlist-button' onClick={saveTracksToPlaylist}>
+              Save As Playlist
+            </button>
+            <button className='playlist-button' onClick={newRecommendations}>
+              New Recommendations
+            </button>
           </div>
         ) : (
-          <button onClick={getRecommendedTracks}>Get Recommended Tracks</button>
+          <div className='recommendations-form playlist-container'>
+            <label>
+              Choose how instrumental you'd like your playlist.
+              <select
+                value={instrumentalness}
+                onChange={(event) => {
+                  setInstrumentalness(event.target.value);
+                }}
+              >
+                <option value='0.02'>Give me voices</option>
+                <option defaultValue value='0.1'>
+                  A little less voices please
+                </option>
+                <option value='0.2'>
+                  Can we turn down the voices some more?
+                </option>
+                <option value='0.5'>Zen Zone</option>
+              </select>
+            </label>
+
+            <label>
+              Whats your mood?
+              <select
+                value={valence}
+                onChange={(event) => {
+                  setValence(event.target.value);
+                }}
+              >
+                <option value='0.25'>My dog just died</option>
+                <option defaultValue value='0.5'>
+                  Pretty standard
+                </option>
+                <option value='0.7'>Feeling great</option>
+              </select>
+            </label>
+
+            <button className='playlist-button' onClick={getRecommendedTracks}>
+              Get Recommended Tracks
+            </button>
+          </div>
         )}
       </div>
     );
