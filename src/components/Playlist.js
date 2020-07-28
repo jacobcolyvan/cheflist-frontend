@@ -184,7 +184,11 @@ const Playlist = ({ recipe, playlistRef }) => {
               </select>
             </label>
 
-            <button className='playlist-button' onClick={getRecommendedTracks}>
+            <button
+              data-cy='get-tracks-button'
+              className='playlist-button'
+              onClick={getRecommendedTracks}
+            >
               Get Recommended Tracks
             </button>
           </div>

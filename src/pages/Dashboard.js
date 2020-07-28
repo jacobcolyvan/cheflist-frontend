@@ -176,6 +176,7 @@ const Dashboard = () => {
             onChange={(e) => passwordHandler(e)}
             minLength='6'
             className='form-input'
+            data-cy='current-password'
           />
           <label>New Password</label>
           <input
@@ -187,6 +188,7 @@ const Dashboard = () => {
             onChange={(e) => passwordHandler(e)}
             minLength='6'
             className='form-input'
+            data-cy='new-password'
           />
           <label>Confirm new password</label>
           <input
@@ -198,10 +200,20 @@ const Dashboard = () => {
             onChange={(e) => passwordHandler(e)}
             minLength='6'
             className='form-input'
+            data-cy='new-password2'
           />
-          <input className='submit' type='submit' value='Change password' />
+          <input
+            className='submit'
+            type='submit'
+            value='Change password'
+            data-cy='change-password-button'
+          />
         </form>
-        <button className='delete' onClick={showDeleteWarningHandler}>
+        <button
+          className='delete'
+          onClick={showDeleteWarningHandler}
+          data-cy='delete-account-button'
+        >
           Delete Account
         </button>
       </div>

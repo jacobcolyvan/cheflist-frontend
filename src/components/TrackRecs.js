@@ -14,10 +14,18 @@ const TrackRecs = ({ tracks, saveTracks, newRecommendations }) => {
             </li>
           ))}
         </ul>
-        <button className='playlist-button' onClick={saveTracks}>
+        <button
+          data-cy='save-tracks-button'
+          className='playlist-button'
+          onClick={saveTracks}
+        >
           Save As Playlist
         </button>
-        <button className='playlist-button' onClick={newRecommendations}>
+        <button
+          data-cy='new-tracks-button'
+          className='playlist-button'
+          onClick={newRecommendations}
+        >
           New Recommendations
         </button>
       </div>

@@ -1,7 +1,5 @@
 const { wait } = require('@testing-library/react');
 
-//beforeeach login
-//aftereach delete recipe and logout
 function login() {
   cy.get('[data-cy=login]').type('test');
   cy.get('[data-cy=password]').type('123456');
@@ -21,11 +19,11 @@ function deleteRecipe() {
 }
 
 function logout() {
-  cy.get('.logout').click();
+  cy.get('[data-cy=logout-button]').click();
 }
 
 context('Add a recipe', () => {
-  beforeEach(() => {
+  before(() => {
     cy.visit('http://localhost:3001/');
     login();
   });
@@ -36,7 +34,7 @@ context('Add a recipe', () => {
 
   // sometimes produces a "Cannot set property 'err' of undefined" this was fixed by restarting our environment
   //disabled afterEach so that we can see changed state
-  afterEach(() => {
+  after(() => {
     //   deleteRecipe();
     //       logout();
   });

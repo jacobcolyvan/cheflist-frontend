@@ -19,7 +19,7 @@ const AuthOptions = () => {
   return (
     <div className='auth-options'>
       {userData.user && (
-        <button className='logout' onClick={logout}>
+        <button data-cy='logout-button' className='logout' onClick={logout}>
           Log out
         </button>
       )}

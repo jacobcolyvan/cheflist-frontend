@@ -9,23 +9,21 @@ function login() {
 }
 
 function changeUsername() {
-  cy.wait(500);
+  cy.wait(750); //need this, for the spotify redirect?
   cy.get('[data-cy=dashboard]').click();
-  cy.wait(500);
   cy.get('[data-cy=edit-username]').type('test100');
   cy.get('[data-cy=change-username-button]').click();
 }
 
 function resetUsername() {
   //reset username to test
-  wait(500);
   cy.get('[data-cy=modal-footer]').click();
   cy.get('[data-cy=edit-username]').clear().type('test');
   cy.get('[data-cy=change-username-button]').click();
 }
 
 function logout() {
-  cy.get('.logout').click();
+  cy.get('[data-cy=logout-button]').click();
 }
 
 context('Dashboard-change username', () => {
