@@ -22,11 +22,10 @@ const SearchController = () => {
     setCurrentRecipes([]);
     setIsLoading(true);
     try {
-      const sort = 'popularity';
+      const sort = 'popularity'; // or 'meta-score'
       const number = 10;
       const searchResults = await axios.get(
         `https://api.spoonacular.com/recipes/complexSearch?query=${searchValue}&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}&addRecipeInformation=true&fillIngredients=true&sort=${sort}&offset=${offset}&number=${number}`
-        // can also sort by popularity
       );
 
       const results = searchResults.data.results;
@@ -38,7 +37,6 @@ const SearchController = () => {
       } else {
         setError('There were no results found, try your luck another search.');
       }
-      console.log('wallah hussy, shes loaded');
     } catch (err) {
       console.log(err);
       console.log('something wrong w/ spoonacular request');
