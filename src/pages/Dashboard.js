@@ -20,7 +20,7 @@ const Dashboard = () => {
   const [passwords, setPasswords] = useState({
     currentPassword: '',
     newPassword: '',
-    newPassword2: ''
+    newPassword2: '',
   });
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -40,14 +40,14 @@ const Dashboard = () => {
       {
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': userData.token
-        }
+          'x-auth-token': userData.token,
+        },
       }
     );
     history.push('/login');
     setUserData({
       token: undefined,
-      user: undefined
+      user: undefined,
     });
     localStorage.setItem('auth-token', '');
     console.log(userData);
@@ -73,8 +73,8 @@ const Dashboard = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': userData.token
-          }
+            'x-auth-token': userData.token,
+          },
         }
       );
       console.log(response);
@@ -91,8 +91,7 @@ const Dashboard = () => {
   const onSubmitPasswords = async (e) => {
     e.preventDefault();
     if (newPassword !== newPassword2) {
-      // setError('new passwords do not match');
-      setStatus('new passwords dont match');
+      setStatus('New passwords do not match');
     } else {
       try {
         const response = await axios.put(
@@ -101,8 +100,8 @@ const Dashboard = () => {
           {
             headers: {
               'Content-Type': 'application/json',
-              'x-auth-token': userData.token
-            }
+              'x-auth-token': userData.token,
+            },
           }
         );
         // setStatus(response.data);
