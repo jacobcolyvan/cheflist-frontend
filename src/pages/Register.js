@@ -48,7 +48,7 @@ const Register = () => {
         history.push('/');
       } catch (err) {
         // console.log(err.response.data);
-        err && setError(err.response.data.msg);
+        err.response.data.msg && setError(err.response.data.msg);
       }
     }
   };

@@ -19,8 +19,8 @@ const SearchController = () => {
   const history = useHistory();
 
   const getRecipes = async () => {
+    setCurrentRecipes([]);
     setIsLoading(true);
-
     try {
       const sort = 'popularity';
       const number = 10;

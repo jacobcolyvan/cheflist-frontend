@@ -35,22 +35,25 @@ const Dashboard = () => {
   };
 
   const deleteAccount = async () => {
-    await axios.delete(
-      `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': userData.token
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': userData.token
+          }
         }
-      }
-    );
-    history.push('/login');
-    setUserData({
-      token: undefined,
-      user: undefined
-    });
-    localStorage.setItem('auth-token', '');
-    console.log(userData);
+      );
+      history.push('/login');
+      setUserData({
+        token: undefined,
+        user: undefined
+      });
+      localStorage.setItem('auth-token', '');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const usernameHandler = (e) => {

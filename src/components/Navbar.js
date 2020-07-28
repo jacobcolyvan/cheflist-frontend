@@ -4,18 +4,23 @@ import AuthOptions from './AuthOptions';
 
 const Navbar = () => {
   return (
-    <div className='navBar'>
-      <li>
-        <Link to='/'>Home</Link>
-      </li>
-      <li>
-        <Link to='/add'>New</Link>
-      </li>
-      <li>
-        <Link to='/dashboard'>Dashboard</Link>
-      </li>
+    <div className='navbar'>
+      <h1 className='home-header'>
+        <i>Cheflist</i>
+      </h1>
+      <div className='navbar-links'>
+        <li>
+          <Link to='/'>Home</Link>
+        </li>
+        <li>
+          <Link to='/add'>New</Link>
+        </li>
+        <li>
+          <Link to='/dashboard'>Dashboard</Link>
+        </li>
 
-      <AuthOptions />
+        <AuthOptions />
+      </div>
     </div>
   );
 };
