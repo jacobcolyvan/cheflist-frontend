@@ -33,7 +33,7 @@ before(() => {
   login();
 });
 
-context('Dashboard-change username', () => {
+context('Dashboard- Delete acccount', () => {
   it('logs in, clicks to dashboard, hits delete account and confirms', () => {
     deleteAccount();
   });

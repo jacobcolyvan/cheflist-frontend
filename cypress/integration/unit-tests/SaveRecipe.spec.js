@@ -27,8 +27,8 @@ before(() => {
   login();
 });
 
-context('Add a recipe', () => {
-  it('can login and logout', () => {
+context('Saves a recipe', () => {
+  it('logs in, accesses search page, enters recipe search term, hits enter and save to favourites', () => {
     addRecipe();
   });
 });

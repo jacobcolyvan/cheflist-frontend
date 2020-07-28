@@ -31,7 +31,7 @@ before(() => {
   login();
 });
 
-context('Dashboard-change username', () => {
+context('Dashboard- Change username', () => {
   it('logs in, change username to test100 then changes it back to test', () => {
     changeUsername();
   });

@@ -35,7 +35,7 @@ before(() => {
   login();
 });
 
-context('Dashboard-change username', () => {
+context('Dashboard- Change password', () => {
   it('logs in, changes password to 234567 then changes it back to 123456', () => {
     changePassword();
   });
