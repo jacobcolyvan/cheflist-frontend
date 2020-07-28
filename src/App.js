@@ -29,6 +29,7 @@ const App = () => {
     recipes: undefined
   });
   const [spotifyAuth, setSpotifyAuth] = useState(true);
+  const [recipeArray, setRecipeArray] = useState([]);
 
   useEffect(() => {
     try {
@@ -78,11 +79,28 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const recipes = userData.recipes;
+    if (recipes) {
+      const splitRecipes = new Array(Math.ceil(recipes.length / 10))
+        .fill()
+        .map((_) => recipes.splice(0, 10));
+      setRecipeArray(splitRecipes);
+    }
+  }, [userData]);
+
   return (
     <div className='main'>
       <Router>
         <UserContext.Provider
-          value={{ userData, setUserData, spotifyAuth, setSpotifyAuth }}
+          value={{
+            userData,
+            setUserData,
+            spotifyAuth,
+            setSpotifyAuth,
+            recipeArray,
+            setRecipeArray
+          }}
         >
           {userData.user && <Navbar />}
 
