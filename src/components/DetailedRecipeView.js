@@ -3,7 +3,7 @@ import axios from 'axios';
 import UserContext from '../context/UserContext';
 import { useHistory } from 'react-router-dom';
 
-import './DetailedRecipeView.css';
+import '../styles/DetailedRecipeView.css';
 
 //shows detailed recipe info within ViewRecipe.js
 
@@ -11,6 +11,7 @@ const DetailedRecipeView = ({ recipe }) => {
   const history = useHistory();
   const { userData, setUserData } = useContext(UserContext);
 
+  // send a put request to delete a recipe, sends the current user, and recipe id as data
   const deleteRecipe = async () => {
     try {
       const newRecipes = await axios.put(
@@ -19,19 +20,21 @@ const DetailedRecipeView = ({ recipe }) => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': userData.token
-          }
+            'x-auth-token': userData.token,
+          },
         }
       );
       console.log('recipe has been deleted');
-
+      //  sets the userData as token, current user and the newly returned recipes from the above put request
       await setUserData({
         token: userData.token,
         user: userData.user,
-        recipes: newRecipes.data
+        recipes: newRecipes.data,
       });
+      // send us back to home/root directory
       history.push(`/`);
     } catch (err) {
+      // if any errors catch and log them
       console.log(err);
     }
   };
@@ -40,7 +43,12 @@ const DetailedRecipeView = ({ recipe }) => {
     <div className='container'>
       <div className='header-container'>
         <h2 className='recipeViewHeader'>{recipe.name}</h2>{' '}
-        <button className='recipe-delete' onClick={deleteRecipe}>
+        {/* button that calls deleteRecipe function */}
+        <button
+          className='recipe-delete'
+          data-cy='deleteButton'
+          onClick={deleteRecipe}
+        >
           Delete
         </button>
       </div>

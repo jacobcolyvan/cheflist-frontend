@@ -1,14 +1,10 @@
+// Renders logout button and functionality
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 
 const AuthOptions = () => {
   const { userData, setUserData } = useContext(UserContext);
 
-  const history = useHistory();
-
-  const register = () => history.push('/register');
-  const login = () => history.push('/login');
   const logout = () => {
     setUserData({
       token: undefined,
@@ -18,13 +14,11 @@ const AuthOptions = () => {
   };
   return (
     <div className='auth-options'>
-      {userData.user ? (
-        <button onClick={logout}>Log out</button>
-      ) : (
-        <>
-          <button onClick={register}>Register</button>
-          <button onClick={login}>Log in</button>
-        </>
+      {/* if user in userData exists then render logout button through short-circuiting */}
+      {userData.user && (
+        <button data-cy='logout-button' className='logout' onClick={logout}>
+          Log out
+        </button>
       )}
     </div>
   );

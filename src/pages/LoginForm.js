@@ -14,26 +14,36 @@ const LoginForm = () => {
   const history = useHistory();
   const { username, password } = formData;
 
+  // function that sets the formData state to equal whatever input is in the forms
   const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
+  // function to send post request for user to login
   const onSubmit = async (e) => {
+    // prevent default form refresh on input submission
     e.preventDefault();
 
     try {
+      // post request to login user with formData as data
       const loginRes = await axios.post(
         `${process.env.REACT_APP_BACKEND_BASE_URL}/auth/login`,
         formData
       );
-      // console.log(loginRes);
+
+      // set userData as the token, user, and recipes we get back
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data._id,
         recipes: loginRes.data.recipes
       });
+      // set the jwt token in local storage
       localStorage.setItem('auth-token', loginRes.data.token);
 
+      // if there is a spotify token send a request for a refresh token with our id
       if (loginRes.data.spotifyAuth) {
         await axios
           .post(
@@ -55,11 +65,13 @@ const LoginForm = () => {
           });
       }
     } catch (err) {
-      console.log(err.response.data.msg);
-      err && setError(err.response.data.msg);
+      // if we get an error set the response of the error
+      const msg = err.response.data.msg;
+      msg && setError(msg);
     }
   };
 
+  // on mount check if user exists in userData, if so, send us to homepage
   useEffect(() => {
     if (userData.user) history.push('/');
   });
@@ -67,9 +79,12 @@ const LoginForm = () => {
   return (
     <div>
       <h1>Sign In</h1>
+      {/* if error exists then set the error message in ErrorNotice and display it */}
       {error && (
         <ErrorNotice message={error} clearError={() => setError(undefined)} />
       )}
+
+      {/* calls onSubmit when the submit input is clicked */}
       <form onSubmit={(e) => onSubmit(e)} className='form'>
         <label>Username</label>
         <input
@@ -79,6 +94,7 @@ const LoginForm = () => {
           required
           value={username}
           onChange={(e) => onChange(e)}
+          data-cy='login'
         />
         <label>Password</label>
         <input
@@ -89,12 +105,17 @@ const LoginForm = () => {
           value={password}
           onChange={(e) => onChange(e)}
           minLength='6'
+          data-cy='password'
         />
 
-        <input type='submit' value='Login' />
+        <input type='submit' value='Login' data-cy='login-button' />
       </form>
       <p>
-        Don't have an account? <Link to='/register'>Sign up</Link>
+        Don't have an account?
+        {/* Link to register route */}
+        <Link to='/register' data-cy='sign-up-link'>
+          Sign up
+        </Link>
       </p>
     </div>
   );
