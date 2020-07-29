@@ -100,9 +100,14 @@ const Dashboard = () => {
       );
       // save the response data in status state so we can display it
       setStatus(response.data);
+<<<<<<< HEAD
+    } catch (err) {
+      setStatus(err.response.data);
+=======
     } catch (error) {
       // if any any errors we'll set an error to display
       setStatus('Error with updating username');
+>>>>>>> c5dd036ec2cfc3857df52c8a66f6d713d73422b2
     }
   };
 
