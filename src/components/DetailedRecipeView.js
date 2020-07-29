@@ -11,7 +11,7 @@ const DetailedRecipeView = ({ recipe }) => {
   const history = useHistory();
   const { userData, setUserData } = useContext(UserContext);
 
-  // send a put request to delete a recipe, takes in the current user, and recipe id as data
+  // send a put request to delete a recipe, sends the current user, and recipe id as data
   const deleteRecipe = async () => {
     try {
       const newRecipes = await axios.put(
@@ -43,6 +43,7 @@ const DetailedRecipeView = ({ recipe }) => {
     <div className='container'>
       <div className='header-container'>
         <h2 className='recipeViewHeader'>{recipe.name}</h2>{' '}
+        {/* button that calls deleteRecipe function */}
         <button
           className='recipe-delete'
           data-cy='deleteButton'
