@@ -25,8 +25,8 @@ const Playlist = ({ recipe, playlistRef }) => {
         url: `https://api.spotify.com/v1/recommendations?market=AU&seed_genres=${seed_genre}&target_instrumentalness=${instrumentalness}&target_valence=${valence}`,
         headers: {
           Authorization: 'Bearer ' + spotifyAuth,
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json'
+        }
       });
       // console.log(trackRecs);
       const trackIds = trackRecs.data.tracks.map(
@@ -36,7 +36,7 @@ const Playlist = ({ recipe, playlistRef }) => {
         track.name,
         track.artists[0].name,
         track.preview_url,
-        track.id,
+        track.id
       ]);
       // console.log(trackInfo);
       setRecommendedTracks(trackInfo);
@@ -55,8 +55,8 @@ const Playlist = ({ recipe, playlistRef }) => {
       )}`,
       headers: {
         Authorization: 'Bearer ' + spotifyAuth,
-        'Content-Type': 'application/json',
-      },
+        'Content-Type': 'application/json'
+      }
     });
   };
 
@@ -66,13 +66,13 @@ const Playlist = ({ recipe, playlistRef }) => {
       method: 'post',
       url: 'https://api.spotify.com/v1/me/playlists',
       headers: {
-        Authorization: 'Bearer ' + spotifyAuth,
+        Authorization: 'Bearer ' + spotifyAuth
       },
       data: {
         name: `${recipe.name}`,
         description: `A playlist generated for the ${recipe.name} recipe`,
-        public: true,
-      },
+        public: true
+      }
     });
     return spotifyRes.data.id;
   };
@@ -82,7 +82,7 @@ const Playlist = ({ recipe, playlistRef }) => {
     const newPlaylistData = {
       id: userData.user,
       recipeId: recipe.id,
-      newPlaylistRef: playlistId,
+      newPlaylistRef: playlistId
     };
 
     const newRecipes = await axios.put(
@@ -91,8 +91,8 @@ const Playlist = ({ recipe, playlistRef }) => {
       {
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': userData.token,
-        },
+          'x-auth-token': userData.token
+        }
       }
     );
     console.log('playlistRef has been added to recipe');
@@ -110,7 +110,7 @@ const Playlist = ({ recipe, playlistRef }) => {
       await setUserData({
         token: userData.token,
         user: userData.user,
-        recipes: data[1],
+        recipes: data[1]
       });
       console.log('Playlist made and tracks saved');
     } catch (err) {
