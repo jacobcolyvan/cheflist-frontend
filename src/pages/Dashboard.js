@@ -26,7 +26,7 @@ const Dashboard = () => {
   const [passwords, setPasswords] = useState({
     currentPassword: '',
     newPassword: '',
-    newPassword2: ''
+    newPassword2: '',
   });
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   // object destructuring of passwords
@@ -50,23 +50,19 @@ const Dashboard = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': userData.token
-          }
+            'x-auth-token': userData.token,
+          },
         }
       );
       history.push('/login');
       setUserData({
         token: undefined,
         user: undefined,
-        recipes: undefined
+        recipes: undefined,
       });
       localStorage.setItem('auth-token', '');
     } catch (err) {
-<<<<<<< HEAD
-      console.log(err.data.message);
-=======
       console.log(err.message);
->>>>>>> a0ffba1... comments, comments everywhere
     }
   };
 
@@ -92,16 +88,17 @@ const Dashboard = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': userData.token
-          }
+            'x-auth-token': userData.token,
+          },
         }
       );
 
       // save the response data in status state so we can display it
       console.log(response.data);
       setStatus(response.data);
-    } catch (err) {
-      setStatus(err.response.data);
+    } catch (error) {
+      // if any any errors we'll set an error to display
+      setStatus('Error with updating username');
     }
   };
 
@@ -117,44 +114,26 @@ const Dashboard = () => {
       // send a put request to backend with new passwords as data and appropriate headers
       try {
         const response = await axios.put(
-<<<<<<< HEAD
           `${process.env.REACT_APP_BACKEND_BASE_URL}/users/${userData.user}`,
-=======
-<<<<<<< HEAD
-          `${process.env.REACT_APP_BACKEND_BASE_URL}/users/${userData.user}`,
-          { currentPassword, newPassword, newPassword2 },
-=======
-          `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
->>>>>>> a0ffba1... comments, comments everywhere
+
           {
             currentPassword,
             newPassword,
-            newPassword2
+            newPassword2,
           },
->>>>>>> c5dd036ec2cfc3857df52c8a66f6d713d73422b2
           {
             headers: {
               'Content-Type': 'application/json',
-              'x-auth-token': userData.token
-            }
+              'x-auth-token': userData.token,
+            },
           }
         );
 
         //  set status as the response from the backend
         setStatus(response.data);
-<<<<<<< HEAD
-      } catch (err) {
-        setStatus(err.response.data);
-=======
-<<<<<<< HEAD
-      } catch (err) {
-        setStatus(err.response.data);
-=======
       } catch (error) {
         //if any errors set a new status as 'Error with updating password'
         setStatus('Error with updating password');
->>>>>>> c5dd036ec2cfc3857df52c8a66f6d713d73422b2
->>>>>>> a0ffba1... comments, comments everywhere
       }
     }
   };
