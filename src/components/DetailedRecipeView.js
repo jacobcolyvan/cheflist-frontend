@@ -11,6 +11,7 @@ const DetailedRecipeView = ({ recipe }) => {
   const history = useHistory();
   const { userData, setUserData } = useContext(UserContext);
 
+  // send a put request to delete a recipe, takes in the current user, and recipe id as data
   const deleteRecipe = async () => {
     try {
       const newRecipes = await axios.put(
@@ -24,14 +25,16 @@ const DetailedRecipeView = ({ recipe }) => {
         }
       );
       console.log('recipe has been deleted');
-
+      //  sets the userData as token, current user and the newly returned recipes from the above put request
       await setUserData({
         token: userData.token,
         user: userData.user,
         recipes: newRecipes.data,
       });
+      // send us back to home/root directory
       history.push(`/`);
     } catch (err) {
+      // if any errors catch and log them
       console.log(err);
     }
   };
