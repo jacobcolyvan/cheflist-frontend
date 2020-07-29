@@ -1,7 +1,7 @@
 // Rendered in App.js
 
 import React, { useContext, useEffect } from 'react';
-import Playlist from '../components/Playlist';
+import PlaylistController from '../components/PlaylistController';
 import UserContext from '../context/UserContext';
 import { useHistory } from 'react-router-dom';
 import DetailedRecipeView from '../components/DetailedRecipeView';
@@ -24,7 +24,10 @@ const ViewRecipe = ({ recipe }) => {
           <DetailedRecipeView recipe={recipe} />
           <br />
           <br />
-          <Playlist recipe={recipe} playlistRef={recipe.playlistRef} />
+          <PlaylistController
+            recipe={recipe}
+            playlistRef={recipe.playlistRef}
+          />
         </div>
       )}
     </div>

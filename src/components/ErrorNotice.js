@@ -1,5 +1,5 @@
 import React from 'react';
-import './ErrorNotice.css';
+import '../styles/ErrorNotice.css';
 
 const ErrorNotice = (props) => {
   return (

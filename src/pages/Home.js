@@ -3,7 +3,6 @@ import UserRecipeTile from '../components/UserRecipeTile';
 import UserContext from '../context/UserContext';
 import { useHistory } from 'react-router-dom';
 import SpotifyAuth from '../components/SpotifyAuth';
-import Loader from 'react-loader-spinner';
 import '../styles/UserRecipeTile.css';
 import { v4 as uuidv4 } from 'uuid';
 
