@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './Modal.css';
+import '../styles/Modal.css';
 import { CSSTransition } from 'react-transition-group';
 
 import Backdrop from './Backdrop';

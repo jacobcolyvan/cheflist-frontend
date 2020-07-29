@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import Modal from '../components/Modal';
-import './Dashboard.css';
+import '../styles/Dashboard.css';
 import GenericModal from '../components/GenericModal';
 import SpotifyAuth from '../components/SpotifyAuth';
 
@@ -20,7 +20,7 @@ const Dashboard = () => {
   const [passwords, setPasswords] = useState({
     currentPassword: '',
     newPassword: '',
-    newPassword2: ''
+    newPassword2: '',
   });
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -35,22 +35,25 @@ const Dashboard = () => {
   };
 
   const deleteAccount = async () => {
-    await axios.delete(
-      `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': userData.token
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': userData.token,
+          },
         }
-      }
-    );
-    history.push('/login');
-    setUserData({
-      token: undefined,
-      user: undefined
-    });
-    localStorage.setItem('auth-token', '');
-    console.log(userData);
+      );
+      history.push('/login');
+      setUserData({
+        token: undefined,
+        user: undefined,
+      });
+      localStorage.setItem('auth-token', '');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const usernameHandler = (e) => {
@@ -73,8 +76,8 @@ const Dashboard = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': userData.token
-          }
+            'x-auth-token': userData.token,
+          },
         }
       );
       console.log(response);
@@ -91,8 +94,7 @@ const Dashboard = () => {
   const onSubmitPasswords = async (e) => {
     e.preventDefault();
     if (newPassword !== newPassword2) {
-      // setError('new passwords do not match');
-      setStatus('new passwords dont match');
+      setStatus('New passwords do not match');
     } else {
       try {
         const response = await axios.put(
@@ -101,8 +103,8 @@ const Dashboard = () => {
           {
             headers: {
               'Content-Type': 'application/json',
-              'x-auth-token': userData.token
-            }
+              'x-auth-token': userData.token,
+            },
           }
         );
         // setStatus(response.data);
@@ -128,8 +130,15 @@ const Dashboard = () => {
         header='Are you sure?'
         footer={
           <>
-            <button onClick={cancelDeleteWarningHandler}>Cancel</button>
-            <button onClick={deleteAccount}>Delete Account</button>
+            <button
+              data-cy='cancel-delete-account'
+              onClick={cancelDeleteWarningHandler}
+            >
+              Cancel
+            </button>
+            <button data-cy='delete-account-confirm' onClick={deleteAccount}>
+              Delete Account
+            </button>
           </>
         }
       >
@@ -152,8 +161,14 @@ const Dashboard = () => {
             value={newUsername}
             onChange={(e) => usernameHandler(e)}
             className='form-input'
+            data-cy='edit-username'
           />
-          <input className='submit' type='submit' value='Change username' />
+          <input
+            className='submit'
+            type='submit'
+            value='Change username'
+            data-cy='change-username-button'
+          />
           {/* <button onClick={editUsername}>Edit</button> */}
         </form>
 
@@ -168,6 +183,7 @@ const Dashboard = () => {
             onChange={(e) => passwordHandler(e)}
             minLength='6'
             className='form-input'
+            data-cy='current-password'
           />
           <label>New Password</label>
           <input
@@ -179,6 +195,7 @@ const Dashboard = () => {
             onChange={(e) => passwordHandler(e)}
             minLength='6'
             className='form-input'
+            data-cy='new-password'
           />
           <label>Confirm new password</label>
           <input
@@ -190,10 +207,20 @@ const Dashboard = () => {
             onChange={(e) => passwordHandler(e)}
             minLength='6'
             className='form-input'
+            data-cy='new-password2'
           />
-          <input className='submit' type='submit' value='Change password' />
+          <input
+            className='submit'
+            type='submit'
+            value='Change password'
+            data-cy='change-password-button'
+          />
         </form>
-        <button className='delete' onClick={showDeleteWarningHandler}>
+        <button
+          className='delete'
+          onClick={showDeleteWarningHandler}
+          data-cy='delete-account-button'
+        >
           Delete Account
         </button>
       </div>

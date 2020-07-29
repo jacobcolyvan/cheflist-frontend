@@ -6,7 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
 } from 'react-router-dom';
 
 //Components
@@ -26,9 +26,10 @@ const App = () => {
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
-    recipes: undefined
+    recipes: undefined,
   });
   const [spotifyAuth, setSpotifyAuth] = useState(true);
+  const [recipeArray, setRecipeArray] = useState([]);
 
   useEffect(() => {
     try {
@@ -48,7 +49,7 @@ const App = () => {
           setUserData({
             token: tokenRes.data.token,
             user: tokenRes.data._id,
-            recipes: tokenRes.data.recipes
+            recipes: tokenRes.data.recipes,
           });
         }
 
@@ -60,8 +61,8 @@ const App = () => {
               {
                 headers: {
                   'Content-Type': 'application/json',
-                  'x-auth-token': tokenRes.data.token
-                }
+                  'x-auth-token': tokenRes.data.token,
+                },
               }
             )
             .then((data) => {
@@ -78,14 +79,31 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const recipes = userData.recipes;
+    if (recipes) {
+      const splitRecipes = new Array(Math.ceil(recipes.length / 10))
+        .fill()
+        .map(() => recipes.slice(0, 10));
+      setRecipeArray(splitRecipes);
+    }
+  }, [userData]);
+
   return (
     <div className='main'>
       <Router>
         <UserContext.Provider
-          value={{ userData, setUserData, spotifyAuth, setSpotifyAuth }}
+          value={{
+            userData,
+            setUserData,
+            spotifyAuth,
+            setSpotifyAuth,
+            recipeArray,
+            setRecipeArray,
+          }}
         >
           {userData.user && <Navbar />}
-          <h1 className='home-header'>Cookify bru</h1>
+
           <br />
           <Switch>
             <Route exact path='/' component={Home} />
@@ -101,6 +119,7 @@ const App = () => {
                 />
               )}
             />
+
             <Route exact path='/dashboard' component={Dashboard} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={LoginForm} />

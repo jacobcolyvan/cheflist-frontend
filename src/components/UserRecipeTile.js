@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './UserRecipeTile.css';
+import '../styles/UserRecipeTile.css';
 
 //this is for saved user recipes - rendered on home page
 const UserRecipes = ({ recipe, index }) => {

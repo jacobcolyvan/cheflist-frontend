@@ -3,12 +3,12 @@ import axios from 'axios';
 import UserContext from '../context/UserContext';
 import SpotifyAuth from './SpotifyAuth';
 import genres from '../utils/genres.json';
+import TrackRecs from './TrackRecs';
 
 const Playlist = ({ recipe, playlistRef }) => {
   const { userData, setUserData, spotifyAuth } = useContext(UserContext);
   const [recommendedTrackIds, setRecommendedTrackIds] = useState(undefined);
   const [recommendedTracks, setRecommendedTracks] = useState(undefined);
-  // console.log(genres.genres);
 
   const [instrumentalness, setInstrumentalness] = useState(0.12);
   const [valence, setValence] = useState(0.5);
@@ -19,15 +19,14 @@ const Playlist = ({ recipe, playlistRef }) => {
       const seed_genre =
         seed_genres[Math.floor(Math.random() * seed_genres.length)];
       console.log(seed_genre);
-      // let instrumentalness = 0.12;
 
       const trackRecs = await axios({
         method: 'get',
         url: `https://api.spotify.com/v1/recommendations?market=AU&seed_genres=${seed_genre}&target_instrumentalness=${instrumentalness}&target_valence=${valence}`,
         headers: {
           Authorization: 'Bearer ' + spotifyAuth,
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
       // console.log(trackRecs);
       const trackIds = trackRecs.data.tracks.map(
@@ -37,9 +36,9 @@ const Playlist = ({ recipe, playlistRef }) => {
         track.name,
         track.artists[0].name,
         track.preview_url,
-        track.id
+        track.id,
       ]);
-      console.log(trackInfo);
+      // console.log(trackInfo);
       setRecommendedTracks(trackInfo);
       setRecommendedTrackIds(trackIds);
     } catch (err) {
@@ -56,8 +55,8 @@ const Playlist = ({ recipe, playlistRef }) => {
       )}`,
       headers: {
         Authorization: 'Bearer ' + spotifyAuth,
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     });
   };
 
@@ -67,13 +66,13 @@ const Playlist = ({ recipe, playlistRef }) => {
       method: 'post',
       url: 'https://api.spotify.com/v1/me/playlists',
       headers: {
-        Authorization: 'Bearer ' + spotifyAuth
+        Authorization: 'Bearer ' + spotifyAuth,
       },
       data: {
         name: `${recipe.name}`,
         description: `A playlist generated for the ${recipe.name} recipe`,
-        public: true
-      }
+        public: true,
+      },
     });
     return spotifyRes.data.id;
   };
@@ -83,7 +82,7 @@ const Playlist = ({ recipe, playlistRef }) => {
     const newPlaylistData = {
       id: userData.user,
       recipeId: recipe.id,
-      newPlaylistRef: playlistId
+      newPlaylistRef: playlistId,
     };
 
     const newRecipes = await axios.put(
@@ -92,8 +91,8 @@ const Playlist = ({ recipe, playlistRef }) => {
       {
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': userData.token
-        }
+          'x-auth-token': userData.token,
+        },
       }
     );
     console.log('playlistRef has been added to recipe');
@@ -111,7 +110,7 @@ const Playlist = ({ recipe, playlistRef }) => {
       await setUserData({
         token: userData.token,
         user: userData.user,
-        recipes: data[1]
+        recipes: data[1],
       });
       console.log('Playlist made and tracks saved');
     } catch (err) {
@@ -143,24 +142,11 @@ const Playlist = ({ recipe, playlistRef }) => {
     return (
       <div>
         {recommendedTrackIds ? (
-          <div className='recommendations-object playlist-container'>
-            <p>
-              <b>Recommended tracks: </b>
-            </p>
-            <ul className='recommended-tracks'>
-              {recommendedTracks.map((track, index) => (
-                <li key={`track${index}`}>
-                  {track[1]}: <i>{track[0]}</i>
-                </li>
-              ))}
-            </ul>
-            <button className='playlist-button' onClick={saveTracksToPlaylist}>
-              Save As Playlist
-            </button>
-            <button className='playlist-button' onClick={newRecommendations}>
-              New Recommendations
-            </button>
-          </div>
+          <TrackRecs
+            tracks={recommendedTracks}
+            saveTracks={saveTracksToPlaylist}
+            newRecommendations={newRecommendations}
+          />
         ) : (
           <div className='recommendations-form playlist-container'>
             <label>
@@ -198,7 +184,11 @@ const Playlist = ({ recipe, playlistRef }) => {
               </select>
             </label>
 
-            <button className='playlist-button' onClick={getRecommendedTracks}>
+            <button
+              data-cy='get-tracks-button'
+              className='playlist-button'
+              onClick={getRecommendedTracks}
+            >
               Get Recommended Tracks
             </button>
           </div>

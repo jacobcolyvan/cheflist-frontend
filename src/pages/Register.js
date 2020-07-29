@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-
 import UserContext from '../context/UserContext';
 import axios from 'axios';
 import ErrorNotice from '../components/ErrorNotice';
@@ -9,7 +8,7 @@ const Register = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
-    password2: ''
+    password2: '',
   });
 
   const { userData, setUserData, setSpotifyAuth } = useContext(UserContext);
@@ -35,21 +34,21 @@ const Register = () => {
           `${process.env.REACT_APP_BACKEND_BASE_URL}/auth/login`,
           {
             username,
-            password
+            password,
           }
         );
 
         setUserData({
           token: loginRes.data.token,
           user: loginRes.data._id,
-          recipes: loginRes.data.recipes
+          recipes: loginRes.data.recipes,
         });
         setSpotifyAuth(false);
         localStorage.setItem('auth-token', loginRes.data.token);
         history.push('/');
       } catch (err) {
         // console.log(err.response.data);
-        err && setError(err.response.data.msg);
+        err.response.data.msg && setError(err.response.data.msg);
       }
     }
   };
@@ -74,6 +73,7 @@ const Register = () => {
           required
           value={username}
           onChange={(e) => onChange(e)}
+          data-cy='register-username'
         />
         <label>Password</label>
         <input
@@ -84,6 +84,7 @@ const Register = () => {
           value={password}
           onChange={(e) => onChange(e)}
           minLength='6'
+          data-cy='register-password'
         />
         <input
           type='password'
@@ -93,11 +94,15 @@ const Register = () => {
           value={password2}
           onChange={(e) => onChange(e)}
           minLength='6'
+          data-cy='register-password2'
         />
-        <input type='submit' value='Register' />
+        <input type='submit' value='Register' data-cy='register-button' />
       </form>
       <p>
-        Already have an account? <Link to='/login'>Login</Link>
+        Already have an account?{' '}
+        <Link data-cy='login-link' to='/login'>
+          Login
+        </Link>
       </p>
     </div>
   );

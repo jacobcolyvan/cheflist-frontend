@@ -12,19 +12,29 @@ body {
   font-family: 'Raleway';
 }
 
+.navbar-links {
+  display: flex;
+}
+
 .main {
   padding: 5rem 10%;
   /* padding: 100px 20%; */
 }
 
-.navBar {
+.navbar {
   display: flex;
   margin: 0 0 10px 0;
+  justify-content: space-between;
 }
 
-.navBar li {
+.auth-options {
+  margin: auto;
+}
+
+.navbar-links li {
   list-style: none;
   padding-right: 20px;
+  margin: auto;
 }
 
 .form label,
@@ -62,23 +72,6 @@ body {
   font-size: 1.1rem;
   border-radius: 5px;
   border: 1px solid white;
-}
-
-.error-notice {
-  border: 1px solid red;
-  padding: 0.3rem;
-  margin: 1rem 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f8cece;
-  border-radius: 0.2rem;
-  width: 100%;
-}
-
-.error-notice * {
-  background-color: #f8cece;
-  color: black;
 }
 
 button {

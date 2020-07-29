@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import UserContext from '../context/UserContext';
 import axios from 'axios';
-import RecipeTile from '../components/RecipeTile';
+import RecipeTiles from '../components/RecipeTiles';
 import ErrorNotice from '../components/ErrorNotice';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,7 +11,7 @@ import Loader from 'react-loader-spinner';
 const SearchController = () => {
   const [searchValue, setSearchValue] = useState('');
   const [currentRecipes, setCurrentRecipes] = useState([]);
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState('');
   const [error, setError] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,16 +21,15 @@ const SearchController = () => {
   const getRecipes = async () => {
     setCurrentRecipes([]);
     setIsLoading(true);
-
     try {
-      const sort = 'meta-score';
+      const sort = 'popularity'; // or 'meta-score'
       const number = 10;
       const searchResults = await axios.get(
-        `https://api.spoonacular.com/recipes/complexSearch?query=${searchValue}&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY2}&addRecipeInformation=true&fillIngredients=true&sort=${sort}&offset=${offset}&number=${number}`
-        // can also sort by popularity
+        `https://api.spoonacular.com/recipes/complexSearch?query=${searchValue}&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}&addRecipeInformation=true&fillIngredients=true&sort=${sort}&offset=${offset}&number=${number}`
       );
 
       const results = searchResults.data.results;
+      console.log(results);
       setIsLoading(false);
       if (results.length > 0) {
         setCurrentRecipes(results);
@@ -38,7 +37,6 @@ const SearchController = () => {
       } else {
         setError('There were no results found, try your luck another search.');
       }
-      console.log('wallah hussy, shes loaded');
     } catch (err) {
       console.log(err);
       console.log('something wrong w/ spoonacular request');
@@ -64,9 +62,9 @@ const SearchController = () => {
         instructions: currentRecipes[index].analyzedInstructions,
         winePairing: currentRecipes[index].winePairing,
         playlistRef: '',
-        id: uuidv4()
+        id: uuidv4(),
       },
-      id: userData.user
+      id: userData.user,
     };
 
     try {
@@ -76,8 +74,8 @@ const SearchController = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': userData.token
-          }
+            'x-auth-token': userData.token,
+          },
         }
       );
 
@@ -85,7 +83,7 @@ const SearchController = () => {
       await setUserData({
         token: userData.token,
         user: userData.user,
-        recipes: newRecipes.data
+        recipes: newRecipes.data,
       });
 
       history.push(`/recipes/${newRecipes.data.length - 1}`);
@@ -101,19 +99,28 @@ const SearchController = () => {
       ingredientArray.push({
         original: ingredient.original,
         ingredient: ingredient.originalName,
-        ingredientAmount: `${ingredient.amount} ${ingredient.unitLong}`
+        ingredientAmount: `${ingredient.amount} ${ingredient.unitLong}`,
       });
     });
     return ingredientArray;
   };
 
   useEffect(() => {
-    if (offset) {
+    if (offset !== '') {
       getRecipes();
       setCurrentRecipes([]);
       console.log(offset);
     }
   }, [offset]);
+
+  const increaseOffset = () => {
+    setOffset(offset + 10);
+  };
+
+  const decreaseOffset = () => {
+    setOffset(offset - 10);
+  };
+
   return (
     <div>
       <SearchBar
@@ -133,15 +140,15 @@ const SearchController = () => {
         </div>
       )}
 
-      <RecipeTile saveRecipe={saveRecipe} recipes={currentRecipes} />
+      <RecipeTiles saveRecipe={saveRecipe} recipes={currentRecipes} />
+      {/* These are buttons for changing pages */}
       {currentRecipes.length > 0 && (
         <div className='offset-controls'>
-          {offset > 0 && <button onClick={setOffset(offset - 10)}>Back</button>}
-          <button onClick={setOffset(offset + 10)}>Next</button>
+          {offset > 0 && <button onClick={decreaseOffset}>Back</button>}
+          <button onClick={increaseOffset}>Next</button>
         </div>
-      )
-      }
-    </div >
+      )}
+    </div>
   );
 };
 

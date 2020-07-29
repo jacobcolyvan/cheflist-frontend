@@ -1,6 +1,5 @@
 import React from 'react';
-
-import './SearchBar.css';
+import '../styles/SearchBar.css';
 //search bar for finding recipes
 
 const SearchBar = (props) => {
@@ -8,6 +7,7 @@ const SearchBar = (props) => {
     <div className='searchbar'>
       <label>Search for recipes</label>
       <input
+        data-cy='searchbar'
         placeholder='Type your search term here and hit enter'
         type='text'
         value={props.searchValue}
