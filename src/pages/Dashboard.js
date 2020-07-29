@@ -16,25 +16,19 @@ const Dashboard = () => {
 
   // used history will be used to help us route
   const history = useHistory();
-
   // our userData is pulled from the Context Provider provided in App.js
   const { userData, setUserData } = useContext(UserContext);
-
   // this status state will be used to return the status of requests, e.g whether they fail or pass
   const [status, setStatus] = useState(null);
-
   // store our newUsername in state
   const [newUsername, setNewUsername] = useState('');
-
   // store an object of our passwords in state, we'll use setPasswords to update these
   const [passwords, setPasswords] = useState({
     currentPassword: '',
     newPassword: '',
     newPassword2: ''
   });
-
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-
   // object destructuring of passwords
   const { currentPassword, newPassword, newPassword2 } = passwords;
 
@@ -68,7 +62,7 @@ const Dashboard = () => {
       });
       localStorage.setItem('auth-token', '');
     } catch (err) {
-      console.log(err.message);
+      console.log(err.data.message);
     }
   };
 
@@ -98,16 +92,12 @@ const Dashboard = () => {
           }
         }
       );
+
       // save the response data in status state so we can display it
+      console.log(response.data);
       setStatus(response.data);
-<<<<<<< HEAD
     } catch (err) {
       setStatus(err.response.data);
-=======
-    } catch (error) {
-      // if any any errors we'll set an error to display
-      setStatus('Error with updating username');
->>>>>>> c5dd036ec2cfc3857df52c8a66f6d713d73422b2
     }
   };
 
@@ -123,17 +113,12 @@ const Dashboard = () => {
       // send a put request to backend with new passwords as data and appropriate headers
       try {
         const response = await axios.put(
-<<<<<<< HEAD
           `${process.env.REACT_APP_BACKEND_BASE_URL}/users/${userData.user}`,
-          { currentPassword, newPassword, newPassword2 },
-=======
-          `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
           {
             currentPassword,
             newPassword,
-            newPassword2,
+            newPassword2
           },
->>>>>>> c5dd036ec2cfc3857df52c8a66f6d713d73422b2
           {
             headers: {
               'Content-Type': 'application/json',
@@ -144,14 +129,8 @@ const Dashboard = () => {
 
         //  set status as the response from the backend
         setStatus(response.data);
-<<<<<<< HEAD
       } catch (err) {
         setStatus(err.response.data);
-=======
-      } catch (error) {
-        //if any errors set a new status as 'Error with updating password'
-        setStatus('Error with updating password');
->>>>>>> c5dd036ec2cfc3857df52c8a66f6d713d73422b2
       }
     }
   };
