@@ -6,7 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
+  Redirect
 } from 'react-router-dom';
 
 //Components
@@ -26,7 +26,7 @@ const App = () => {
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
-    recipes: undefined,
+    recipes: undefined
   });
   const [spotifyAuth, setSpotifyAuth] = useState(true);
   const [recipeArray, setRecipeArray] = useState([]);
@@ -49,7 +49,7 @@ const App = () => {
           setUserData({
             token: tokenRes.data.token,
             user: tokenRes.data._id,
-            recipes: tokenRes.data.recipes,
+            recipes: tokenRes.data.recipes
           });
         }
 
@@ -61,8 +61,8 @@ const App = () => {
               {
                 headers: {
                   'Content-Type': 'application/json',
-                  'x-auth-token': tokenRes.data.token,
-                },
+                  'x-auth-token': tokenRes.data.token
+                }
               }
             )
             .then((data) => {
@@ -99,7 +99,7 @@ const App = () => {
             spotifyAuth,
             setSpotifyAuth,
             recipeArray,
-            setRecipeArray,
+            setRecipeArray
           }}
         >
           {userData.user && <Navbar />}
