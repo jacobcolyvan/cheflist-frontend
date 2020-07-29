@@ -20,7 +20,7 @@ const Dashboard = () => {
   const [passwords, setPasswords] = useState({
     currentPassword: '',
     newPassword: '',
-    newPassword2: '',
+    newPassword2: ''
   });
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -37,33 +37,32 @@ const Dashboard = () => {
   const deleteAccount = async () => {
     try {
       await axios.delete(
-        `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/users/${userData.user}`,
         {
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': userData.token,
-          },
+            'x-auth-token': userData.token
+          }
         }
       );
       history.push('/login');
       setUserData({
         token: undefined,
         user: undefined,
+        recipes: undefined
       });
       localStorage.setItem('auth-token', '');
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
   };
 
   const usernameHandler = (e) => {
     setNewUsername(e.target.value);
-    // console.log(newUsername);
   };
 
   const passwordHandler = (e) => {
     setPasswords({ ...passwords, [e.target.name]: e.target.value });
-    console.log(passwords);
   };
 
   //logic to send a newUsername
@@ -71,20 +70,20 @@ const Dashboard = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/users/${userData.user}`,
         { newUsername },
         {
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': userData.token,
-          },
+            'x-auth-token': userData.token
+          }
         }
       );
       console.log(response);
       console.log(response.data);
       setStatus(response.data);
-    } catch (error) {
-      setStatus('Error with updating username');
+    } catch (err) {
+      setStatus(err.response.data);
     }
     //refresh on submit username and have an alert?
     //needs alert to tell user that username has been updated
@@ -98,20 +97,20 @@ const Dashboard = () => {
     } else {
       try {
         const response = await axios.put(
-          `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
+          `${process.env.REACT_APP_BACKEND_BASE_URL}/users/${userData.user}`,
           { currentPassword, newPassword, newPassword2 },
           {
             headers: {
               'Content-Type': 'application/json',
-              'x-auth-token': userData.token,
-            },
+              'x-auth-token': userData.token
+            }
           }
         );
         // setStatus(response.data);
         console.log(response);
         setStatus(response.data);
-      } catch (error) {
-        setStatus('Error with updating password');
+      } catch (err) {
+        setStatus(err.response.data);
       }
     }
   };

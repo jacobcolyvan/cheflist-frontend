@@ -26,6 +26,7 @@ const Home = () => {
       </p>
       {!spotifyAuth && (
         <>
+          <br />
           <p>
             To get the most out of this website, you'll want to authorise
             spotify.
