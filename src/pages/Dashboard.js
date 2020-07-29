@@ -96,14 +96,9 @@ const Dashboard = () => {
       // save the response data in status state so we can display it
       console.log(response.data);
       setStatus(response.data);
-<<<<<<< HEAD
-    } catch (err) {
-      setStatus(err.response.data);
-=======
     } catch (error) {
       // if any any errors we'll set an error to display
       setStatus('Error with updating username');
->>>>>>> 5d7e9e9872a9212d126dca7f983fb6922aedf394
     }
   };
 
@@ -119,15 +114,11 @@ const Dashboard = () => {
       // send a put request to backend with new passwords as data and appropriate headers
       try {
         const response = await axios.put(
-<<<<<<< HEAD
-          `${process.env.REACT_APP_BACKEND_BASE_URL}/users/${userData.user}`,
-=======
           `${process.env.REACT_APP_BACKEND_BASE_URL}/user/${userData.user}`,
->>>>>>> 5d7e9e9872a9212d126dca7f983fb6922aedf394
           {
             currentPassword,
             newPassword,
-            newPassword2
+            newPassword2,
           },
           {
             headers: {
@@ -139,14 +130,9 @@ const Dashboard = () => {
 
         //  set status as the response from the backend
         setStatus(response.data);
-<<<<<<< HEAD
-      } catch (err) {
-        setStatus(err.response.data);
-=======
       } catch (error) {
         //if any errors set a new status as 'Error with updating password'
         setStatus('Error with updating password');
->>>>>>> 5d7e9e9872a9212d126dca7f983fb6922aedf394
       }
     }
   };
