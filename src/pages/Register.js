@@ -8,7 +8,7 @@ const Register = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
-    password2: '',
+    password2: ''
   });
 
   const { userData, setUserData, setSpotifyAuth } = useContext(UserContext);
@@ -43,7 +43,7 @@ const Register = () => {
           `${process.env.REACT_APP_BACKEND_BASE_URL}/auth/login`,
           {
             username,
-            password,
+            password
           }
         );
 
@@ -51,7 +51,7 @@ const Register = () => {
         setUserData({
           token: loginRes.data.token,
           user: loginRes.data._id,
-          recipes: loginRes.data.recipes,
+          recipes: loginRes.data.recipes
         });
         // set spotifyAuth to false as new user
         setSpotifyAuth(false);
@@ -59,13 +59,9 @@ const Register = () => {
         localStorage.setItem('auth-token', loginRes.data.token);
         history.push('/');
       } catch (err) {
-<<<<<<< HEAD
-        // console.log(err.response.data.msg);
-        err && setError(err.response.data.msg);
-=======
-        // console.log(err.response.data);
-        err.response.data.msg && setError(err.response.data.msg);
->>>>>>> 8cd5ba9ddca1f88b15963bebc49ec908cdd72336
+        const msg = err.response.data.msg || 'Login error (500)';
+        console.log(msg);
+        msg && setError(err.response.data.msg);
       }
     }
   };

@@ -66,7 +66,7 @@ const LoginForm = () => {
       }
     } catch (err) {
       // if we get an error set the response of the error
-      const msg = err.response.data.msg;
+      const msg = err.response.data.msg || 'Login error (500)';
       msg && setError(msg);
     }
   };
