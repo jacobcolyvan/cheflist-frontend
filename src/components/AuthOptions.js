@@ -7,8 +7,10 @@ const AuthOptions = () => {
 
   const history = useHistory();
 
-  const register = () => history.push('/register');
-  const login = () => history.push('/login');
+  // const register = () => history.push('/register');
+  // const login = () => history.push('/login');
+
+  //logout function resets the token, user and auth token
   const logout = () => {
     setUserData({
       token: undefined,
@@ -18,6 +20,7 @@ const AuthOptions = () => {
   };
   return (
     <div className='auth-options'>
+      {/* if user in userData exists then render logout button through short-circuiting */}
       {userData.user && (
         <button data-cy='logout-button' className='logout' onClick={logout}>
           Log out
