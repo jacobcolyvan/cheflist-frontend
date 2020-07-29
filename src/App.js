@@ -79,8 +79,6 @@ const App = () => {
     }
   }, []);
 
-  console.log(userData);
-
   useEffect(() => {
     const recipes = userData.recipes;
     if (recipes) {
@@ -90,9 +88,6 @@ const App = () => {
       setRecipeArray(splitRecipes);
     }
   }, [userData]);
-
-  console.log(userData);
-  console.log('hello');
 
   return (
     <div className='main'>

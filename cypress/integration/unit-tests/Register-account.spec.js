@@ -28,5 +28,5 @@ context('Register user', () => {
 });
 
 after(() => {
-  deleteAccount();
+  // deleteAccount();
 });

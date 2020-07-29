@@ -1,3 +1,5 @@
+const { wait } = require('@testing-library/react');
+
 function login() {
   cy.get('[data-cy=login]').type('test');
   cy.get('[data-cy=password]').type('123456');
@@ -12,6 +14,7 @@ function addRecipe() {
 }
 
 function addPlaylist() {
+  //errors out here
   cy.get('[data-cy=get-tracks-button]').click();
   cy.get('[data-cy=save-tracks-button]').click();
   // cy.wait(3000);
