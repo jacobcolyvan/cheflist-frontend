@@ -19,8 +19,8 @@ const DetailedRecipeView = ({ recipe }) => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': userData.token
-          }
+            'x-auth-token': userData.token,
+          },
         }
       );
       console.log('recipe has been deleted');
@@ -28,7 +28,7 @@ const DetailedRecipeView = ({ recipe }) => {
       await setUserData({
         token: userData.token,
         user: userData.user,
-        recipes: newRecipes.data
+        recipes: newRecipes.data,
       });
       history.push(`/`);
     } catch (err) {
@@ -40,7 +40,11 @@ const DetailedRecipeView = ({ recipe }) => {
     <div className='container'>
       <div className='header-container'>
         <h2 className='recipeViewHeader'>{recipe.name}</h2>{' '}
-        <button className='recipe-delete' onClick={deleteRecipe}>
+        <button
+          className='recipe-delete'
+          data-cy='deleteButton'
+          onClick={deleteRecipe}
+        >
           Delete
         </button>
       </div>

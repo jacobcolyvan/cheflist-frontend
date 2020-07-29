@@ -17,6 +17,7 @@ const RecipeTiles = ({ recipes, saveRecipe }) => {
             ))}
           </ul>
           <button
+            data-cy='save'
             onClick={() => {
               saveRecipe(index);
             }}

@@ -8,7 +8,11 @@ const GenericModal = (props) => {
       onCancel={props.onClear}
       header={props.header}
       show={!!props.message}
-      footer={<button onClick={props.onClear}>Okay</button>}
+      footer={
+        <button data-cy='modal-footer' onClick={props.onClear}>
+          Okay
+        </button>
+      }
     >
       <p>{props.message}</p>
     </Modal>

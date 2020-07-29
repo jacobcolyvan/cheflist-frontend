@@ -7,7 +7,7 @@ import ErrorNotice from '../components/ErrorNotice';
 const LoginForm = () => {
   const [formData, setFormData] = useState({
     username: '',
-    password: ''
+    password: '',
   });
   const [error, setError] = useState('');
   const { userData, setUserData, setSpotifyAuth } = useContext(UserContext);
@@ -30,7 +30,7 @@ const LoginForm = () => {
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data._id,
-        recipes: loginRes.data.recipes
+        recipes: loginRes.data.recipes,
       });
       localStorage.setItem('auth-token', loginRes.data.token);
 
@@ -39,13 +39,13 @@ const LoginForm = () => {
           .post(
             `${process.env.REACT_APP_BACKEND_BASE_URL}/spotify/refresh`,
             {
-              id: loginRes.data._id
+              id: loginRes.data._id,
             },
             {
               headers: {
                 'Content-Type': 'application/json',
-                'x-auth-token': loginRes.data.token
-              }
+                'x-auth-token': loginRes.data.token,
+              },
             }
           )
           .then((data) => {
@@ -80,6 +80,7 @@ const LoginForm = () => {
           required
           value={username}
           onChange={(e) => onChange(e)}
+          data-cy='login'
         />
         <label>Password</label>
         <input
@@ -90,12 +91,16 @@ const LoginForm = () => {
           value={password}
           onChange={(e) => onChange(e)}
           minLength='6'
+          data-cy='password'
         />
 
-        <input type='submit' value='Login' />
+        <input type='submit' value='Login' data-cy='login-button' />
       </form>
       <p>
-        Don't have an account? <Link to='/register'>Sign up</Link>
+        Don't have an account?{' '}
+        <Link to='/register' data-cy='sign-up-link'>
+          Sign up
+        </Link>
       </p>
     </div>
   );

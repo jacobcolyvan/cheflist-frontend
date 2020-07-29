@@ -29,6 +29,7 @@ const SearchController = () => {
       );
 
       const results = searchResults.data.results;
+      console.log(results);
       setIsLoading(false);
       if (results.length > 0) {
         setCurrentRecipes(results);
@@ -61,9 +62,9 @@ const SearchController = () => {
         instructions: currentRecipes[index].analyzedInstructions,
         winePairing: currentRecipes[index].winePairing,
         playlistRef: '',
-        id: uuidv4()
+        id: uuidv4(),
       },
-      id: userData.user
+      id: userData.user,
     };
 
     try {
@@ -73,8 +74,8 @@ const SearchController = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': userData.token
-          }
+            'x-auth-token': userData.token,
+          },
         }
       );
 
@@ -82,7 +83,7 @@ const SearchController = () => {
       await setUserData({
         token: userData.token,
         user: userData.user,
-        recipes: newRecipes.data
+        recipes: newRecipes.data,
       });
 
       history.push(`/recipes/${newRecipes.data.length - 1}`);
@@ -98,7 +99,7 @@ const SearchController = () => {
       ingredientArray.push({
         original: ingredient.original,
         ingredient: ingredient.originalName,
-        ingredientAmount: `${ingredient.amount} ${ingredient.unitLong}`
+        ingredientAmount: `${ingredient.amount} ${ingredient.unitLong}`,
       });
     });
     return ingredientArray;
