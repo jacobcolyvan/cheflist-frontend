@@ -6,14 +6,16 @@ import { CSSTransition } from 'react-transition-group';
 import Backdrop from './Backdrop';
 
 //portals allow us to render content wherever we specify
-// feed props into our modal that will be displayed by the overlay
+
 //style
 //header
 //onSubmit
 //footer
+
+//below function will take in props from Modal and render the appropriate header, message and footer, it'll be rendered on a different dom element then root
 const ModalOverlay = (props) => {
   const content = (
-    <div className={`modal`} style={props.style}>
+    <div className={`modal`}>
       <header className={`modal__header`}>
         <h2>{props.header}</h2>
       </header>
@@ -28,13 +30,16 @@ const ModalOverlay = (props) => {
       </form>
     </div>
   );
+  // above function will be rendered in separate dom element so that the modal can appear ontop of root dom element
   return ReactDOM.createPortal(content, document.getElementById('modal-hook'));
 };
 
 const Modal = (props) => {
   return (
     <>
+      {/* displays a backdrop that blurs the screen as the modal pops up, this backdrop needs it's own div to render onto in index */}
       {props.show && <Backdrop onClick={props.onCancel} />}
+      {/* allows css transitions on modal */}
       <CSSTransition
         in={props.show}
         mountOnEnter
@@ -42,6 +47,7 @@ const Modal = (props) => {
         timeout={200}
         classNames='modal'
       >
+        {/* render ModalOverlay with all props passing from Modal down to ModalOverlay */}
         <ModalOverlay {...props} />
       </CSSTransition>
     </>
