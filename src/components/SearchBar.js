@@ -1,6 +1,8 @@
 import React from 'react';
 import '../styles/SearchBar.css';
+
 //search bar for finding recipes
+//data-cy is used as testing ids for cypress
 
 // takes in props from SearchController
 const SearchBar = (props) => {
