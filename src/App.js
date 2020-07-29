@@ -84,7 +84,7 @@ const App = () => {
     if (recipes) {
       const splitRecipes = new Array(Math.ceil(recipes.length / 10))
         .fill()
-        .map((_) => recipes.splice(0, 10));
+        .map((_) => recipes.slice(0, 10));
       setRecipeArray(splitRecipes);
     }
   }, [userData]);
