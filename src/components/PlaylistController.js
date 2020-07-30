@@ -1,4 +1,4 @@
-// Renders all different playlist states (playlist controller)
+// Renders all different playlist object states (playlist controller)
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import UserContext from '../context/UserContext';
@@ -22,11 +22,7 @@ const PlaylistController = ({ recipe, playlistRef }) => {
   // Function to request recommended tracks from spotify
   const getRecommendedTracks = async () => {
     try {
-      // Get random genre from list
-      const seed_genres = genres.genres;
-      const seed_genre =
-        seed_genres[Math.floor(Math.random() * seed_genres.length)];
-      console.log(seed_genre);
+      const seed_genre = getSeedGenre();
 
       // Spotify recommendation request
       const trackRecs = await axios({
@@ -55,6 +51,28 @@ const PlaylistController = ({ recipe, playlistRef }) => {
       console.log(err.message);
       console.log('There was an error getting recommended tracks');
     }
+  };
+
+  const getSeedGenre = () => {
+    const seed_genres = genres.genres;
+    const genre_mappings = genres.genre_mappings;
+    let seed_genre = [];
+
+    if (recipe.cuisines.length > 0) {
+      recipe.cuisines.forEach((cuisine) => {
+        if (genre_mappings[cuisine])
+          seed_genre.push(genre_mappings[cuisine].genres[0]);
+      });
+    }
+
+    if (!(seed_genre.length > 0)) {
+      seed_genre.push = [
+        seed_genres[Math.floor(Math.random() * seed_genres.length)]
+      ];
+      console.log(seed_genre);
+    }
+    console.log(seed_genre);
+    return seed_genre;
   };
 
   // Function to actually add recommended tracks to an already created playlist
