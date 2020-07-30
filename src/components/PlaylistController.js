@@ -204,7 +204,7 @@ const PlaylistController = ({ recipe, playlistRef }) => {
       <div>
         <br />
         <p>You might want to authorise Spotify for this one: </p>
-        <SpotifyAuth />;
+        <SpotifyAuth />
       </div>
     );
   }

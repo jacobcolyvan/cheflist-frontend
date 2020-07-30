@@ -93,7 +93,7 @@ button {
 }
 
 .playlist-container {
-  margin: 1rem 5rem;
+  margin: 5rem 0;
 }
 
 select {
@@ -109,12 +109,6 @@ select {
   width: 100%;
   padding: 50px;
   text-align: center;
-}
-
-@media all and (max-width: 1465px) {
-  .playlist-container {
-    margin: 5rem 0;
-  }
 }
 
 @media all and (max-width: 600px) {
