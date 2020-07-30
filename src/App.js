@@ -103,30 +103,33 @@ const App = () => {
           }}
         >
           {userData.user && <Navbar />}
+          <div className='main2'>
+            <br />
 
-          <br />
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/add' component={AddRecipe} />
-            <Route
-              exact
-              path='/recipes/:id'
-              render={(props) => (
-                <ViewRecipe
-                  recipe={
-                    userData.recipes && userData.recipes[props.match.params.id]
-                  }
-                />
-              )}
-            />
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/add' component={AddRecipe} />
+              <Route
+                exact
+                path='/recipes/:id'
+                render={(props) => (
+                  <ViewRecipe
+                    recipe={
+                      userData.recipes &&
+                      userData.recipes[props.match.params.id]
+                    }
+                  />
+                )}
+              />
 
-            <Route exact path='/dashboard' component={Dashboard} />
-            <Route exact path='/register' component={Register} />
-            <Route exact path='/login' component={LoginForm} />
-            <Route path='/spotify-loading' component={SpotifyRoutingPage} />
+              <Route exact path='/dashboard' component={Dashboard} />
+              <Route exact path='/register' component={Register} />
+              <Route exact path='/login' component={LoginForm} />
+              <Route path='/spotify-loading' component={SpotifyRoutingPage} />
 
-            <Redirect to='/' />
-          </Switch>
+              <Redirect to='/' />
+            </Switch>
+          </div>
         </UserContext.Provider>
       </Router>
     </div>

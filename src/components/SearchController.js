@@ -18,9 +18,14 @@ const SearchController = () => {
   const { userData, setUserData } = useContext(UserContext);
   const history = useHistory();
 
+  //function used to get recipes
   const getRecipes = async () => {
+    // sets current recipes to equal empty array
     setCurrentRecipes([]);
+    //sets loading state to true
     setIsLoading(true);
+
+    //send a get request to our recipe api to get some recipes back
     try {
       const sort = 'popularity'; // or 'meta-score'
       const number = 10;
@@ -28,16 +33,24 @@ const SearchController = () => {
         `https://api.spoonacular.com/recipes/complexSearch?query=${searchValue}&apiKey=${process.env.REACT_APP_SPOONACULAR_API_KEY}&addRecipeInformation=true&fillIngredients=true&sort=${sort}&offset=${offset}&number=${number}`
       );
 
+      // store our results in const results
       const results = searchResults.data.results;
-      console.log(results);
+
+      // set loading to false after this is done
       setIsLoading(false);
+
+      // if recipes array has recipes in it
       if (results.length > 0) {
+        // set current recipes to be those recipes
         setCurrentRecipes(results);
+        // don't think we need this line
         setError(undefined);
       } else {
+        // else set error because no recipes were stored in results
         setError('There were no results found, try your luck another search.');
       }
     } catch (err) {
+      // if we have an error with our get request, log it and set loading to false
       console.log(err);
       console.log('something wrong w/ spoonacular request');
       setIsLoading(false);

@@ -13,7 +13,13 @@ const UserRecipes = ({ recipe, index }) => {
           </h3>
           <img src={recipe.image} alt='' />
           <p>Cooking time: {recipe.totalCookingTime}</p>
-          {recipe.cuisines.length > 0 && <p>{recipe.cuisines}</p>}
+          {recipe.cuisines.length > 0 && (
+            <p>
+              {recipe.cuisines.map((cuisines, index) => (
+                <span key={`cuisines${index}`}>{cuisines} </span>
+              ))}
+            </p>
+          )}
         </div>
       )}
     </>

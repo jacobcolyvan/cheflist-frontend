@@ -4,6 +4,8 @@ import Modal from './Modal';
 
 const GenericModal = (props) => {
   return (
+    // A simpler modal that will take in an onCancel to clear the modal
+    // displays a header, message and a footer that has a button to hide the modal
     <Modal
       onCancel={props.onClear}
       header={props.header}
