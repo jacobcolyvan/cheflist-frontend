@@ -1,12 +1,12 @@
 .navbar-links {
   display: flex;
-  background-color: black;
+  background-color: #c5a468;
 }
 .navbar {
   display: flex;
   margin: 0 0 10px 0;
   justify-content: space-between;
-  background-color: black;
+  background-color: #c5a468;
   position: fixed;
   top: 0;
   width: 80%;
@@ -14,28 +14,42 @@
 
 .auth-options {
   margin: auto;
-  background-color: black;
+  background-color: #c5a468;
 }
 
 .navbar-links li {
   list-style: none;
   padding-right: 20px;
   margin: auto;
-  background-color: black;
+  background-color: #c5a468;
 }
 
 .navbar-links a {
   text-decoration: none;
-  background-color: black;
+  background-color: #c5a468;
+}
+
+.home-header {
+  margin-left: 0.3rem;
 }
 
 .home-header a {
-  background-color: black;
+  background-color: #c5a468;
+}
+
+.logout {
+  background-color: #c5a468;
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  margin-right: 0.3rem;
 }
 
 @media all and (max-width: 600px) {
-  .navbar-links li {
+  .navbar {
     display: flex;
     flex-direction: column;
+  }
+  .home-header {
+    width: 100%;
   }
 }
