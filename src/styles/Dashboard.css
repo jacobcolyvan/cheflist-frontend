@@ -13,7 +13,7 @@
 .form-input {
   padding: 0.5rem;
   width: 100%;
-  margin: 0.5rem;
+  margin: 0.5rem 0;
   background-color: rgb(61 110 152 / 26%);
   border: 0.1rem solid gray;
 }
