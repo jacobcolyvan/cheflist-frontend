@@ -30,15 +30,14 @@ const ModalOverlay = (props) => {
       </form>
     </div>
   );
-  // above function will be rendered in separate dom element so that the modal can appear ontop of root dom element
   return ReactDOM.createPortal(content, document.getElementById('modal-hook'));
 };
 
 const Modal = (props) => {
   return (
     <>
-      {/* displays a backdrop that blurs the screen as the modal pops up, this backdrop needs it's own div to render onto in index */}
       {props.show && <Backdrop onClick={props.onCancel} />}
+      {/* displays a backdrop that blurs the screen as the modal pops up, this backdrop needs it's own div to render onto in index */}
       {/* allows css transitions on modal */}
       <CSSTransition
         in={props.show}

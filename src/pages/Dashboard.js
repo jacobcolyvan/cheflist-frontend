@@ -141,7 +141,7 @@ const Dashboard = () => {
   };
 
   return (
-    <>
+    <div>
       <GenericModal header='Alert!' message={status} onClear={statusHandler} />
 
       <Modal
@@ -245,7 +245,7 @@ const Dashboard = () => {
           Delete Account
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
