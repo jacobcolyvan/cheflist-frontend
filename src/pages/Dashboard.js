@@ -142,10 +142,8 @@ const Dashboard = () => {
 
   return (
     <>
-      {/* this modal is used for error handling and displaying responses from http requests to backend, gives general status of events */}
       <GenericModal header='Alert!' message={status} onClear={statusHandler} />
 
-      {/* below modal is used to display the delete confirmation */}
       <Modal
         show={showConfirmModal}
         onCancel={cancelDeleteWarningHandler}
@@ -173,7 +171,6 @@ const Dashboard = () => {
         with your Spotify, click here.
       </p>
       <div>
-        {/* this form will initiate the put request to change the username when the submit input is clicked */}
         <form onSubmit={(e) => onSubmitUsername(e)} className='password-form'>
           <label>Edit Username</label>
           <input
@@ -195,7 +192,6 @@ const Dashboard = () => {
           />
         </form>
 
-        {/* this form will call onSubmitPasswords when the submit input is clicked  */}
         <form onSubmit={(e) => onSubmitPasswords(e)} className='password-form'>
           <label>Current Password</label>
           <input
@@ -241,7 +237,6 @@ const Dashboard = () => {
           />
         </form>
 
-        {/* this button will bring up the modal showing the delete confirmation and cancel */}
         <button
           className='delete'
           onClick={showDeleteWarningHandler}
