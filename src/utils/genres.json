@@ -124,8 +124,6 @@
     "work-out",
     "world-music"
   ],
-<<<<<<< HEAD
-=======
   "genres-no-metal": [
     "acoustic",
     "afrobeat",
@@ -254,7 +252,6 @@
     "metal-misc",
     "metalcore"
   ],
->>>>>>> e0a0390a85a72be4cd5fa49a909337ca36b918de
   "cuisines": [
     "African",
     "American",
@@ -282,9 +279,6 @@
     "Spanish",
     "Thai",
     "Vietnamese"
-<<<<<<< HEAD
-  ]
-=======
   ],
   "genre_mappings": {
     "British": { "genres": ["british"] },
@@ -302,5 +296,4 @@
     "Southern": { "genres": ["soul"] },
     "Middle Eastern": { "genres": ["turkish"] }
   }
->>>>>>> e0a0390a85a72be4cd5fa49a909337ca36b918de
 }
