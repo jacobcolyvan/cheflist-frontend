@@ -35,10 +35,8 @@ const ModalOverlay = (props) => {
 
 const Modal = (props) => {
   return (
-    <>
+    <div>
       {props.show && <Backdrop onClick={props.onCancel} />}
-      {/* displays a backdrop that blurs the screen as the modal pops up, this backdrop needs it's own div to render onto in index */}
-      {/* allows css transitions on modal */}
       <CSSTransition
         in={props.show}
         mountOnEnter
@@ -46,10 +44,9 @@ const Modal = (props) => {
         timeout={200}
         classNames='modal'
       >
-        {/* render ModalOverlay with all props passing from Modal down to ModalOverlay */}
         <ModalOverlay {...props} />
       </CSSTransition>
-    </>
+    </div>
   );
 };
 
