@@ -6,7 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
 } from 'react-router-dom';
 
 //Components
@@ -26,7 +26,7 @@ const App = () => {
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
-    recipes: undefined
+    recipes: undefined,
   });
   const [spotifyAuth, setSpotifyAuth] = useState(true);
   const [recipeArray, setRecipeArray] = useState([]);
@@ -49,7 +49,7 @@ const App = () => {
           setUserData({
             token: tokenRes.data.token,
             user: tokenRes.data._id,
-            recipes: tokenRes.data.recipes
+            recipes: tokenRes.data.recipes,
           });
         }
 
@@ -61,8 +61,8 @@ const App = () => {
               {
                 headers: {
                   'Content-Type': 'application/json',
-                  'x-auth-token': tokenRes.data.token
-                }
+                  'x-auth-token': tokenRes.data.token,
+                },
               }
             )
             .then((data) => {
@@ -99,34 +99,37 @@ const App = () => {
             spotifyAuth,
             setSpotifyAuth,
             recipeArray,
-            setRecipeArray
+            setRecipeArray,
           }}
         >
           {userData.user && <Navbar />}
+          <div className='main2'>
+            <br />
 
-          <br />
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/add' component={AddRecipe} />
-            <Route
-              exact
-              path='/recipes/:id'
-              render={(props) => (
-                <ViewRecipe
-                  recipe={
-                    userData.recipes && userData.recipes[props.match.params.id]
-                  }
-                />
-              )}
-            />
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/add' component={AddRecipe} />
+              <Route
+                exact
+                path='/recipes/:id'
+                render={(props) => (
+                  <ViewRecipe
+                    recipe={
+                      userData.recipes &&
+                      userData.recipes[props.match.params.id]
+                    }
+                  />
+                )}
+              />
 
-            <Route exact path='/dashboard' component={Dashboard} />
-            <Route exact path='/register' component={Register} />
-            <Route exact path='/login' component={LoginForm} />
-            <Route path='/spotify-loading' component={SpotifyRoutingPage} />
+              <Route exact path='/dashboard' component={Dashboard} />
+              <Route exact path='/register' component={Register} />
+              <Route exact path='/login' component={LoginForm} />
+              <Route path='/spotify-loading' component={SpotifyRoutingPage} />
 
-            <Redirect to='/' />
-          </Switch>
+              <Redirect to='/' />
+            </Switch>
+          </div>
         </UserContext.Provider>
       </Router>
     </div>
