@@ -1,0 +1,41 @@
+.navbar-links {
+  display: flex;
+  background-color: black;
+}
+.navbar {
+  display: flex;
+  margin: 0 0 10px 0;
+  justify-content: space-between;
+  background-color: black;
+  position: fixed;
+  top: 0;
+  width: 80%;
+}
+
+.auth-options {
+  margin: auto;
+  background-color: black;
+}
+
+.navbar-links li {
+  list-style: none;
+  padding-right: 20px;
+  margin: auto;
+  background-color: black;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  background-color: black;
+}
+
+.home-header a {
+  background-color: black;
+}
+
+@media all and (max-width: 600px) {
+  .navbar-links li {
+    display: flex;
+    flex-direction: column;
+  }
+}
