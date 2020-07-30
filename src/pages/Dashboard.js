@@ -158,7 +158,6 @@ const Dashboard = () => {
             >
               Cancel
             </button>
-            {/* button to initiate delete account function*/}
             <button data-cy='delete-account-confirm' onClick={deleteAccount}>
               Delete Account
             </button>
