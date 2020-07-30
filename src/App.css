@@ -79,6 +79,10 @@ button {
   padding: 0.1rem 0;
 }
 
+.recommendations-form {
+  margin-top: 1rem;
+}
+
 .view-recipe {
   display: flex;
   flex-wrap: wrap;
@@ -89,7 +93,7 @@ button {
 }
 
 .playlist-container {
-  margin: 0rem 5rem;
+  margin: 1rem 5rem;
 }
 
 select {
