@@ -1,0 +1,25 @@
+.navbar-links li {
+  list-style: none;
+  padding-right: 20px;
+  margin: auto;
+}
+
+.navbar {
+  display: flex;
+  margin: 0 0 10px 0;
+  justify-content: space-between;
+}
+
+.navbar-links a {
+  list-style: none;
+  padding-right: 0.5rem;
+}
+
+.navbar-links {
+  display: flex;
+  flex-direction: row;
+}
+
+.auth-options {
+  margin: auto;
+}
