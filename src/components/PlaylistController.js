@@ -54,6 +54,7 @@ const PlaylistController = ({ recipe, playlistRef }) => {
     }
   };
 
+  // gets a seed genre based on cuisine, otherwise random genre.
   const getSeedGenre = () => {
     const seed_genres = genres.genres;
     const genre_mappings = genres.genre_mappings;
@@ -66,13 +67,13 @@ const PlaylistController = ({ recipe, playlistRef }) => {
       });
     }
 
-    console.log(seed_genre);
     if (!(seed_genre.length > 0)) {
       seed_genre = [
         seed_genres[Math.floor(Math.random() * seed_genres.length)]
       ];
       console.log(seed_genre);
     }
+
     console.log(seed_genre);
     return seed_genre;
   };
