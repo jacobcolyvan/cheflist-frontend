@@ -12,19 +12,30 @@ const RecipeTiles = ({ recipes, saveRecipe }) => {
           <h3>{recipe.title}</h3>
 
           <img className='image' src={recipe.image} alt='' />
+          {recipe.diets.length > 0 && (
+            <ul className='diets'>
+              {/* map each diet with to a list */}
+              {recipe.diets.map((diet, index) => (
+                <li key={`diet${index}`}>{diet}</li>
+              ))}
+            </ul>
+          )}
 
-          <ul>
-            {/* map each diet with to a list */}
-            {recipe.diets.map((diet, index) => (
-              <li key={`diet${index}`}>{diet}</li>
-            ))}
-          </ul>
+          {recipe.cuisines.length > 0 && (
+            <p>
+              {recipe.cuisines.map((cuisines, index) => (
+                <span key={`cuisines${index}`}>{cuisines} </span>
+              ))}
+            </p>
+          )}
+
           <button
             // when button is clicked callback function saveRecipe is called on the specified index
             data-cy='save'
             onClick={() => {
               saveRecipe(index);
             }}
+            className='save-button'
           >
             Favourite/Save
           </button>

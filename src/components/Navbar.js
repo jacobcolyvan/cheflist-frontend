@@ -1,17 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AuthOptions from './AuthOptions';
-
+import '../styles/Navbar.css';
 // nav bar with Links supplied by react-router-dom to specified routes
 //data-cy is used as testing ids for cypress
 const Navbar = () => {
   return (
     <div className='navbar'>
       <h1 className='home-header'>
-        <i>
-          <Link to='/'>Cheflist</Link>
-        </i>
+        <i>Cheflist</i>
       </h1>
+
       <div className='navbar-links'>
         <li>
           <Link data-cy='home' to='/'>

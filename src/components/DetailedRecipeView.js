@@ -20,8 +20,8 @@ const DetailedRecipeView = ({ recipe }) => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': userData.token,
-          },
+            'x-auth-token': userData.token
+          }
         }
       );
       console.log('recipe has been deleted');
@@ -29,7 +29,7 @@ const DetailedRecipeView = ({ recipe }) => {
       await setUserData({
         token: userData.token,
         user: userData.user,
-        recipes: newRecipes.data,
+        recipes: newRecipes.data
       });
       // send us back to home/root directory
       history.push(`/`);
@@ -53,22 +53,27 @@ const DetailedRecipeView = ({ recipe }) => {
         </button>
       </div>
 
-      <img src={recipe.image} alt='' />
+      <img src={recipe.image} alt='' className='image2' />
 
       <div className='cookingTimes'>
-        {recipe.preptime > 0 && <span>Prep Time: {recipe.preptime}</span>}
-        {recipe.cookingMinutes > 0 && (
-          <span>Cooking Time: {recipe.cookingMinutes}</span>
-        )}
         {recipe.totalCookingTime > 0 && (
-          <span>Total Cooking Time: {recipe.totalCookingTime}</span>
+          <span>
+            <b>Total Cooking Time: </b> {recipe.totalCookingTime} minutes
+          </span>
         )}
       </div>
 
-      {recipe.winePairing.length > 0 && <p>{recipe.winePairings}</p>}
+      {recipe.winePairing.length > 0 && (
+        <p>
+          <b>Diet categories: </b>
+          {recipe.winePairing.map((winePairing, index) => (
+            <span key={`winePairing${index}`}>{winePairing}, </span>
+          ))}
+        </p>
+      )}
 
       <p>
-        <b>Source:</b>{' '}
+        <b>Source: </b>
         <a href={recipe.recipeUrl} target='_blank' rel='noopener noreferrer'>
           {recipe.sourceName || 'here'}
         </a>
@@ -76,20 +81,29 @@ const DetailedRecipeView = ({ recipe }) => {
 
       {recipe.diets.length > 0 && (
         <p>
-          <b>Diet categories:</b>{' '}
+          <b>Diet categories: </b>{' '}
           {recipe.diets.map((diet, index) => (
             <span key={`diet${index}`}>{diet}, </span>
           ))}
         </p>
       )}
-      {recipe.cuisines.length > 0 && <p>Cuisines: {recipe.cuisines}</p>}
+      {recipe.cuisines.length > 0 && (
+        <p>
+          <b>Cuisines: </b>
+          {recipe.cuisines.map((cuisine, index) => (
+            <span key={`cuisine${index}`}>{cuisine}, </span>
+          ))}
+        </p>
+      )}
 
-      <p className='ingredients'>
-        <b>Ingredients:</b>
-        {recipe.ingredients.map((ingredient, index) => (
-          <li key={`ingredient${index}`}>{ingredient.original}</li>
-        ))}
-      </p>
+      {recipe.ingredients.length > 0 && (
+        <p className='ingredients'>
+          <b>Ingredients:</b>
+          {recipe.ingredients.map((ingredient, index) => (
+            <li key={`ingredient${index}`}>{ingredient.original}</li>
+          ))}
+        </p>
+      )}
 
       {recipe.instructions.length > 0 && (
         <ol className='instructions'>

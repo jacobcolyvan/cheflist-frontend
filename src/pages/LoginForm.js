@@ -7,7 +7,7 @@ import ErrorNotice from '../components/ErrorNotice';
 const LoginForm = () => {
   const [formData, setFormData] = useState({
     username: '',
-    password: '',
+    password: ''
   });
   const [error, setError] = useState('');
   const { userData, setUserData, setSpotifyAuth } = useContext(UserContext);
@@ -18,7 +18,7 @@ const LoginForm = () => {
   const onChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -38,7 +38,7 @@ const LoginForm = () => {
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data._id,
-        recipes: loginRes.data.recipes,
+        recipes: loginRes.data.recipes
       });
       // set the jwt token in local storage
       localStorage.setItem('auth-token', loginRes.data.token);
@@ -49,24 +49,24 @@ const LoginForm = () => {
           .post(
             `${process.env.REACT_APP_BACKEND_BASE_URL}/spotify/refresh`,
             {
-              id: loginRes.data._id,
+              id: loginRes.data._id
             },
             {
               headers: {
                 'Content-Type': 'application/json',
-                'x-auth-token': loginRes.data.token,
-              },
+                'x-auth-token': loginRes.data.token
+              }
             }
           )
           .then((data) => {
             setSpotifyAuth(data.data.access_token);
-            console.log('access_token added');
+            // console.log('access_token added');
             history.push('/');
           });
       }
     } catch (err) {
       // if we get an error set the response of the error
-      const msg = err.response.data.msg;
+      const msg = err.response.data.msg || 'Login error (500)';
       msg && setError(msg);
     }
   };
