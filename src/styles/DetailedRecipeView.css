@@ -8,7 +8,7 @@
 }
 
 .cookingTimes span {
-  padding: 1rem;
+  padding: rem 0;
 }
 
 .recipe-delete {
@@ -17,11 +17,15 @@
   color: orange;
   font-weight: bold;
   margin-left: 5rem;
+  margin-bottom: 1rem;
 }
 
 .header-container {
   display: flex;
   /* justify-content: space-between; */
+}
+.recipeViewHeader {
+  margin-bottom: 1rem;
 }
 
 .instructions,

@@ -23,11 +23,12 @@ const PlaylistController = ({ recipe, playlistRef }) => {
   const getRecommendedTracks = async () => {
     try {
       const seed_genre = getSeedGenre();
+      console.log(seed_genre);
 
       // Spotify recommendation request
       const trackRecs = await axios({
         method: 'get',
-        url: `https://api.spotify.com/v1/recommendations?market=AU&seed_genres=${seed_genre}&target_instrumentalness=${instrumentalness}&target_valence=${valence}`,
+        url: `https://api.spotify.com/v1/recommendations?market=AU&seed_genres=${seed_genre[0]}&target_instrumentalness=${instrumentalness}&target_valence=${valence}`,
         headers: {
           Authorization: 'Bearer ' + spotifyAuth,
           'Content-Type': 'application/json'
@@ -65,8 +66,9 @@ const PlaylistController = ({ recipe, playlistRef }) => {
       });
     }
 
+    console.log(seed_genre);
     if (!(seed_genre.length > 0)) {
-      seed_genre.push = [
+      seed_genre = [
         seed_genres[Math.floor(Math.random() * seed_genres.length)]
       ];
       console.log(seed_genre);

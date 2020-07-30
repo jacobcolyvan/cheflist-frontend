@@ -20,8 +20,8 @@ const DetailedRecipeView = ({ recipe }) => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': userData.token,
-          },
+            'x-auth-token': userData.token
+          }
         }
       );
       console.log('recipe has been deleted');
@@ -29,7 +29,7 @@ const DetailedRecipeView = ({ recipe }) => {
       await setUserData({
         token: userData.token,
         user: userData.user,
-        recipes: newRecipes.data,
+        recipes: newRecipes.data
       });
       // send us back to home/root directory
       history.push(`/`);
