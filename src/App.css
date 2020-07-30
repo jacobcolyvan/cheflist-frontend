@@ -4,10 +4,6 @@
   padding: 0;
   box-sizing: border-box;
   background-color: #16202c;
-  /* background-color: #414444; */
-  /* background-color: #cab36d; */
-  /* background-color: #bc986a; */
-  /* background-color: #3d3c41; */
   color: white;
 }
 
@@ -28,7 +24,6 @@ body {
   background-color: white;
   color: black;
   margin-bottom: 1rem;
-  /* padding: 2px; */
 }
 
 .form label {
