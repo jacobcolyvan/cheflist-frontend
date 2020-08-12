@@ -114,7 +114,7 @@ const Register = () => {
         <input type='submit' value='Register' data-cy='register-button' />
       </form>
       <p>
-        Already have an account?
+        Already have an account? <span> </span>
         {/* link to login route */}
         <Link data-cy='login-link' to='/login'>
           Login

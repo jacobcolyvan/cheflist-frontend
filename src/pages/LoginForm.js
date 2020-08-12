@@ -111,7 +111,7 @@ const LoginForm = () => {
         <input type='submit' value='Login' data-cy='login-button' />
       </form>
       <p>
-        Don't have an account? 
+        Don't have an account? <span> </span>  
         {/* Link to register route */}
         <Link to='/register' data-cy='sign-up-link'>
           Sign up
