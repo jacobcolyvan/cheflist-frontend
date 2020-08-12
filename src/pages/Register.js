@@ -85,7 +85,6 @@ const Register = () => {
           type='text'
           placeholder=''
           name='username'
-          // front end validation for required
           required
           value={username}
           onChange={(e) => onChange(e)}
@@ -99,7 +98,6 @@ const Register = () => {
           name='password'
           value={password}
           onChange={(e) => onChange(e)}
-          //front end validation for minimum length
           minLength='6'
           data-cy='register-password'
         />

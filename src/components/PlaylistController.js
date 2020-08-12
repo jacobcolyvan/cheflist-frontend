@@ -3,7 +3,6 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import UserContext from '../context/UserContext';
 import SpotifyAuth from './SpotifyAuth';
-// this is a list of spotify genres that can be used as recommendation seeds
 import genres from '../utils/genres.json';
 import TrackRecs from './TrackRecs';
 import TrackRecForm from './TrackRecForm';
@@ -11,11 +10,8 @@ import TrackRecForm from './TrackRecForm';
 const PlaylistController = ({ recipe, playlistRef }) => {
   const { userData, setUserData, spotifyAuth } = useContext(UserContext);
 
-  // Recomended tracksIds are used as a query parameter for playlist saving
   const [recommendedTrackIds, setRecommendedTrackIds] = useState(undefined);
-  // RecommendedTracks are what is actually displayed pre-saving of the tracks
   const [recommendedTracks, setRecommendedTracks] = useState(undefined);
-  // These are recommendation parameters
   const [instrumentalness, setInstrumentalness] = useState(0.12);
   const [valence, setValence] = useState(0.5);
 
@@ -35,7 +31,6 @@ const PlaylistController = ({ recipe, playlistRef }) => {
         }
       });
 
-      // creates and sets the track recommendation arrays
       const trackIds = trackRecs.data.tracks.map(
         (track) => `spotify:track:${track.id}`
       );
@@ -92,7 +87,6 @@ const PlaylistController = ({ recipe, playlistRef }) => {
     });
   };
 
-  // Function that creates an empty Spotify playlist
   const createEmptyPlaylist = async () => {
     const spotifyRes = await axios({
       method: 'post',
@@ -106,13 +100,12 @@ const PlaylistController = ({ recipe, playlistRef }) => {
         public: true
       }
     });
-    // returns id of created playlist
+
     return spotifyRes.data.id;
   };
 
   // function  to save created playlist id to current user recipe object
   const savePlaylistIdToUser = async (playlistId) => {
-    // Save playlistRef to recipe object
     const newPlaylistData = {
       id: userData.user,
       recipeId: recipe.id,
@@ -131,11 +124,9 @@ const PlaylistController = ({ recipe, playlistRef }) => {
     );
 
     console.log('playlistRef has been added to recipe');
-    // returns playlist Id, and newRecipes data
     return [playlistId, newRecipes.data];
   };
 
-  // Function that actually saves the track array to the empty playlist,
   // mostly a controller of many of the above functions
   const saveTracksToPlaylist = async () => {
     try {
@@ -154,13 +145,11 @@ const PlaylistController = ({ recipe, playlistRef }) => {
     }
   };
 
-  // Function that resets track reccomendation states
   const newRecommendations = () => {
     setRecommendedTrackIds(undefined);
     setRecommendedTracks(undefined);
   };
 
-  // Renders Iframe playlist object if recipe already has a playlist-id attached
   if (playlistRef) {
     return (
       <div className='playlist-container'>
