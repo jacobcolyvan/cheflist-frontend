@@ -23,18 +23,19 @@ const Home = () => {
       <p>
         Because music and food are better when together: <i>Cheflist.</i>
       </p>
+      <br />
       {!spotifyAuth && (
         <>
-          <br />
+
           <p>
-            To get the most out of this website, you'll want to authorise
-            spotify.
+            To get the most out of this website, you'll want to:
           </p>
           <SpotifyAuth />
+          <br/>
         </>
       )}
 
-      {recipeArray.length > 0 && (
+      {recipeArray.length > 0  ? (
         <>
           <div className='userRecipeTile'>
             {recipeArray[page].map((recipe, index) => (
@@ -63,6 +64,11 @@ const Home = () => {
               </button>
             )}
           </div>
+        </>
+      ) : (
+        <>
+          <p>This is your home page where you'll find all the recipes (with any of the playlists) that you've saved.</p>
+          <p>Go ahead and search for your first recipe by clicking on <i>New</i> on the menu bar.</p>
         </>
       )}
     </div>

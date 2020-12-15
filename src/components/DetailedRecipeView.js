@@ -63,7 +63,7 @@ const DetailedRecipeView = ({ recipe }) => {
         )}
       </div>
 
-      {recipe.winePairing.length > 0 && (
+      {(recipe.winePairing && recipe.winePairing.length) > 0 && (
         <p>
           <b>Diet categories: </b>
           {recipe.winePairing.map((winePairing, index) => (

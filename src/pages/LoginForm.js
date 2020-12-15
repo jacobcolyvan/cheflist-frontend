@@ -84,6 +84,9 @@ const LoginForm = () => {
         <ErrorNotice message={error} clearError={() => setError(undefined)} />
       )}
 
+      <p>Welcome to Cheflist, you'll have to sign-in  (or sign-up)  before anything else. </p>
+      <br/>
+
       {/* calls onSubmit when the submit input is clicked */}
       <form onSubmit={(e) => onSubmit(e)} className='form'>
         <label>Username</label>
@@ -111,7 +114,7 @@ const LoginForm = () => {
         <input type='submit' value='Login' data-cy='login-button' />
       </form>
       <p>
-        Don't have an account? <span> </span>  
+        Don't have an account? <span> </span>
         {/* Link to register route */}
         <Link to='/register' data-cy='sign-up-link'>
           Sign up

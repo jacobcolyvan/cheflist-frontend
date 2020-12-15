@@ -78,6 +78,10 @@ const Register = () => {
       {error && (
         <ErrorNotice message={error} clearError={() => setError(undefined)} />
       )}
+
+      <p>Welcome to Cheflist, you'll have to sign-in (or sign-up)  before anything else. </p>
+      <br/>
+
       {/* form for entering a username, will call onSubmit to post data when submit input is clicked */}
       <form onSubmit={(e) => onSubmit(e)} className='form'>
         <label>Username</label>

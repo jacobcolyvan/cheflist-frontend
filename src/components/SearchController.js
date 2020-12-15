@@ -99,7 +99,9 @@ const SearchController = () => {
         recipes: newRecipes.data
       });
 
-      history.push(`/recipes/${newRecipes.data.length - 1}`);
+      // console.log(newRecipes.data.length);
+      // history.push(`/recipes/${newRecipes.data.length - 1}`);
+      history.push(`/recipes/`);
     } catch (err) {
       console.log('somethings said no');
       console.log(err);

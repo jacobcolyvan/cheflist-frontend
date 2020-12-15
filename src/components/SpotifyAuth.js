@@ -11,7 +11,7 @@ const SpotifyAuth = () => {
             process.env.REACT_APP_SPOTIFY_CALLBACK_URI
           )}&show_dialog=true`}
         >
-          Authorise Spotify
+          Authorise Spotify.
         </a>
       </p>
     </div>
