@@ -70,7 +70,7 @@ const App = () => {
               setSpotifyAuth(data.data.access_token);
             });
         } else {
-          setSpotifyAuth(false);42
+          setSpotifyAuth(false);
         }
       };
       checkLoggedIn();
